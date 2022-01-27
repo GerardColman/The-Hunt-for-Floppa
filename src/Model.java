@@ -39,15 +39,17 @@ public class Model {
     private int Score = 0;
 
     public Model() {
+
+
         //setup game world
         //Player
-        Player = new GameObject("res/Lightning.png", 50, 50, new Point3f(500, 500, 0));
+        Player = new GameObject("res/floppa.png", 50, 50, new Point3f(500, 500, 0));
         //Enemies  starting with four
 
-        EnemiesList.add(new GameObject("res/UFO.png", 50, 50, new Point3f(((float) Math.random() * 50 + 400), 0, 0)));
-        EnemiesList.add(new GameObject("res/UFO.png", 50, 50, new Point3f(((float) Math.random() * 50 + 500), 0, 0)));
-        EnemiesList.add(new GameObject("res/UFO.png", 50, 50, new Point3f(((float) Math.random() * 100 + 500), 0, 0)));
-        EnemiesList.add(new GameObject("res/UFO.png", 50, 50, new Point3f(((float) Math.random() * 100 + 400), 0, 0)));
+        EnemiesList.add(new GameObject("res/floppa.png", 50, 50, new Point3f(((float) Math.random() * 50 + 400), 0, 0)));
+        EnemiesList.add(new GameObject("res/floppa.png", 50, 50, new Point3f(((float) Math.random() * 50 + 500), 0, 0)));
+        EnemiesList.add(new GameObject("res/floppa.png", 50, 50, new Point3f(((float) Math.random() * 100 + 500), 0, 0)));
+        EnemiesList.add(new GameObject("res/floppa.png", 50, 50, new Point3f(((float) Math.random() * 100 + 400), 0, 0)));
 
 
     }

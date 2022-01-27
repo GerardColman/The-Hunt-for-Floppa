@@ -77,7 +77,7 @@ public class MainWindow {
         startMenuButton.setBounds(400, 500, 200, 40);
 
         //loading background image
-        File BackroundToLoad = new File("res/startscreen.png");  //should work okay on OSX and Linux but check if you have issues depending your eclipse install or if your running this without an IDE
+        File BackroundToLoad = new File("res/floppa.png");  //should work okay on OSX and Linux but check if you have issues depending your eclipse install or if your running this without an IDE
         try {
 
             BufferedImage myPicture = ImageIO.read(BackroundToLoad);
