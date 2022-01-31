@@ -44,7 +44,7 @@ SOFTWARE.
 
 
 public class MainWindow {
-    private static JFrame frame = new JFrame("Game");   // Change to the name of your game
+    private static JFrame frame = new JFrame("Floppas Adventures");   // Change to the name of your game
     private static Model gameworld = new Model();
     private static Viewer canvas = new Viewer(gameworld);
     private KeyListener Controller = new Controller();
@@ -92,8 +92,7 @@ public class MainWindow {
         frame.setVisible(true);
     }
 
-    public static void main(String[] args) {
-        MainWindow hello = new MainWindow();  //sets up environment
+    public void run(){
         while (true)   //not nice but remember we do just want to keep looping till the end.  // this could be replaced by a thread but again we want to keep things simple
         {
             //swing has timer class to help us time this but I'm writing my own, you can of course use the timer, but I want to set FPS and display it
@@ -114,8 +113,6 @@ public class MainWindow {
             UnitTests.CheckFrameRate(System.currentTimeMillis(), FrameCheck, TargetFPS);
 
         }
-
-
     }
 
     //Basic Model-View-Controller pattern
