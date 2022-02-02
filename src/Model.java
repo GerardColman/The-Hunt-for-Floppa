@@ -44,12 +44,12 @@ public class Model {
         //setup game world
         //Player
         Player = new GameObject("res/floppa.png", 50, 50, new Point3f(500, 500, 0));
-        //Enemies  starting with four
 
-        EnemiesList.add(new GameObject("res/floppa.png", 50, 50, new Point3f(((float) Math.random() * 50 + 400), 0, 0)));
-        EnemiesList.add(new GameObject("res/floppa.png", 50, 50, new Point3f(((float) Math.random() * 50 + 500), 0, 0)));
-        EnemiesList.add(new GameObject("res/floppa.png", 50, 50, new Point3f(((float) Math.random() * 100 + 500), 0, 0)));
-        EnemiesList.add(new GameObject("res/floppa.png", 50, 50, new Point3f(((float) Math.random() * 100 + 400), 0, 0)));
+        //Enemies  starting with four
+//        EnemiesList.add(new GameObject("res/floppa.png", 50, 50, new Point3f(((float) Math.random() * 50 + 400), 0, 0)));
+//        EnemiesList.add(new GameObject("res/floppa.png", 50, 50, new Point3f(((float) Math.random() * 50 + 500), 0, 0)));
+//        EnemiesList.add(new GameObject("res/floppa.png", 50, 50, new Point3f(((float) Math.random() * 100 + 500), 0, 0)));
+//        EnemiesList.add(new GameObject("res/floppa.png", 50, 50, new Point3f(((float) Math.random() * 100 + 400), 0, 0)));
 
 
     }
@@ -110,11 +110,11 @@ public class Model {
             }
         }
 
-        if (EnemiesList.size() < 2) {
-            while (EnemiesList.size() < 6) {
-                EnemiesList.add(new GameObject("res/UFO.png", 50, 50, new Point3f(((float) Math.random() * 1000), 0, 0)));
-            }
-        }
+//        if (EnemiesList.size() < 2) {
+//            while (EnemiesList.size() < 6) {
+//                EnemiesList.add(new GameObject("res/UFO.png", 50, 50, new Point3f(((float) Math.random() * 1000), 0, 0)));
+//            }
+//        }
     }
 
     private void bulletLogic() {
@@ -158,16 +158,11 @@ public class Model {
         }
 
         if (Controller.getInstance().isKeySpacePressed()) {
-            CreateBullet();
-            Controller.getInstance().setKeySpacePressed(false);
+            // Attack
         }
 
     }
 
-    private void CreateBullet() {
-        BulletList.add(new GameObject("res/Bullet.png", 32, 64, new Point3f(Player.getCentre().getX(), Player.getCentre().getY(), 0.0f)));
-
-    }
 
     public GameObject getPlayer() {
         return Player;

@@ -1,6 +1,4 @@
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
@@ -16,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import util.UnitTests;
+
 
 /*
  * Created by Abraham Campbell on 15/01/2020.
@@ -48,21 +47,25 @@ public class MainWindow {
     private static Model gameworld = new Model();
     private static Viewer canvas = new Viewer(gameworld);
     private KeyListener Controller = new Controller();
-    private static int TargetFPS = 100;
+    private static int TargetFPS = 25;
     private static boolean startGame = false;
     private JLabel BackgroundImageForStartMenu;
+    int screen_width = 1280;
+    int screen_height = 720;
 
     public MainWindow() {
-        frame.setSize(1000, 1000);  // you can customise this later and adapt it to change on size.
+        frame.setSize(screen_width, screen_height);  // you can customise this later and adapt it to change on size.
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   //If exit // you can modify with your way of quitting , just is a template.
         frame.setLayout(null);
         frame.add(canvas);
-        canvas.setBounds(0, 0, 1000, 1000);
+        canvas.setBounds(0, 0, screen_width, screen_height);
         canvas.setBackground(new Color(255, 255, 255)); //white background  replaced by Space background but if you remove the background method this will draw a white screen
         canvas.setVisible(false);   // this will become visible after you press the key.
 
 
         JButton startMenuButton = new JButton("Start Game");  // start button
+        JLabel titleText = new JLabel("Floppas Adventures");
+
         startMenuButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -74,15 +77,18 @@ public class MainWindow {
                 startGame = true;
             }
         });
-        startMenuButton.setBounds(400, 500, 200, 40);
+        startMenuButton.setBounds(540, 500, 200, 40);
+        titleText.setBounds(500, 100, 400, 80);
+        titleText.setFont(new Font("Verdana", Font.PLAIN, 30));
+        frame.add(titleText);
 
         //loading background image
-        File BackroundToLoad = new File("res/floppa.png");  //should work okay on OSX and Linux but check if you have issues depending your eclipse install or if your running this without an IDE
+        File BackroundToLoad = new File("res/FLPADVBackground.png");  //should work okay on OSX and Linux but check if you have issues depending your eclipse install or if your running this without an IDE
         try {
 
             BufferedImage myPicture = ImageIO.read(BackroundToLoad);
             BackgroundImageForStartMenu = new JLabel(new ImageIcon(myPicture));
-            BackgroundImageForStartMenu.setBounds(0, 0, 1000, 1000);
+            BackgroundImageForStartMenu.setBounds(0, 0, screen_width, screen_height);
             frame.add(BackgroundImageForStartMenu);
         } catch (IOException e) {
             e.printStackTrace();
