@@ -136,6 +136,7 @@ public class Viewer extends JPanel {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
     }
 
     private void drawBullet(int x, int y, int width, int height, String texture, Graphics g) {

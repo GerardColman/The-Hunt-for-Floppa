@@ -1,0 +1,6 @@
+- [x] Movement (WASD)
+- [ ] Rotation
+- [ ] Attack (Space)
+- [ ] Enemies get destroyed on hit
+  - [ ] Health
+- [ ]

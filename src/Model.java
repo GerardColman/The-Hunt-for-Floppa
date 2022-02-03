@@ -33,6 +33,7 @@ SOFTWARE.
 public class Model {
 
     private GameObject Player;
+    private GameObject Sword;
     private Controller controller = Controller.getInstance();
     private CopyOnWriteArrayList<GameObject> EnemiesList = new CopyOnWriteArrayList<GameObject>();
     private CopyOnWriteArrayList<GameObject> BulletList = new CopyOnWriteArrayList<GameObject>();
@@ -43,10 +44,10 @@ public class Model {
 
         //setup game world
         //Player
-        Player = new GameObject("res/floppa.png", 50, 50, new Point3f(500, 500, 0));
+        Player = new GameObject("res/Lightning.png", 50, 50, new Point3f(500, 500, 0));
 
         //Enemies  starting with four
-//        EnemiesList.add(new GameObject("res/floppa.png", 50, 50, new Point3f(((float) Math.random() * 50 + 400), 0, 0)));
+        EnemiesList.add(new GameObject("res/UFO.png", 50, 50, new Point3f(500, 300, 0)));
 //        EnemiesList.add(new GameObject("res/floppa.png", 50, 50, new Point3f(((float) Math.random() * 50 + 500), 0, 0)));
 //        EnemiesList.add(new GameObject("res/floppa.png", 50, 50, new Point3f(((float) Math.random() * 100 + 500), 0, 0)));
 //        EnemiesList.add(new GameObject("res/floppa.png", 50, 50, new Point3f(((float) Math.random() * 100 + 400), 0, 0)));
@@ -95,19 +96,7 @@ public class Model {
     private void enemyLogic() {
         // TODO Auto-generated method stub
         for (GameObject temp : EnemiesList) {
-            // Move enemies
 
-            temp.getCentre().ApplyVector(new Vector3f(0, -1, 0));
-
-
-            //see if they get to the top of the screen ( remember 0 is the top
-            if (temp.getCentre().getY() == 900.0f)  // current boundary need to pass value to model
-            {
-                EnemiesList.remove(temp);
-
-                // enemies win so score decreased
-                Score--;
-            }
         }
 
 //        if (EnemiesList.size() < 2) {
@@ -158,9 +147,19 @@ public class Model {
         }
 
         if (Controller.getInstance().isKeySpacePressed()) {
-            // Attack
+            attack();
         }
 
+    }
+
+    private void attack() {
+        /*
+        1. Create sword vertex
+        2. Check if it collides
+        3. Destroy enemy
+         */
+
+        Sword = new GameObject("res/bullet.png",20,20, getPlayer().getCentre().PlusVector(new Vector3f(0, 1, 0)));
     }
 
 
