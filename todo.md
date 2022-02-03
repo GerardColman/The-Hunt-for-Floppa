@@ -1,3 +1,6 @@
+- [ ] Optimisation
+  - [ ] Loading texture
+  - [ ] lmao
 - [x] Movement (WASD)
 - [ ] Rotation
 - [ ] Attack (Space)
