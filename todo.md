@@ -3,4 +3,4 @@
 - [ ] Attack (Space)
 - [ ] Enemies get destroyed on hit
   - [ ] Health
-- [ ]
+- [ ] Fix sprite rendering every frame
