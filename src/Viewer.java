@@ -48,24 +48,45 @@ public class Viewer extends JPanel {
 
     Model gameworld = new Model();
 
+    Image enemyTexture;
+    Image playerTexture;
+    Image backgroundTexture;
+
     public Viewer(Model World) {
         this.gameworld = World;
+        loadTextures();
         // TODO Auto-generated constructor stub
     }
 
     public Viewer(LayoutManager layout) {
         super(layout);
+        loadTextures();
         // TODO Auto-generated constructor stub
     }
 
     public Viewer(boolean isDoubleBuffered) {
         super(isDoubleBuffered);
+        loadTextures();
         // TODO Auto-generated constructor stub
     }
 
     public Viewer(LayoutManager layout, boolean isDoubleBuffered) {
         super(layout, isDoubleBuffered);
+        loadTextures();
         // TODO Auto-generated constructor stub
+    }
+
+    private void loadTextures(){
+        File enemyFile = new File("res/UFO.png");
+        File playerFile = new File("res/floppa.png");
+        File backgroundFile = new File("res/spacebackground.png");
+        try {
+            enemyTexture = ImageIO.read(enemyFile);
+            playerTexture = ImageIO.read(playerFile);
+            backgroundTexture = ImageIO.read(backgroundFile);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void updateview() {
@@ -97,10 +118,10 @@ public class Viewer extends JPanel {
 
         //Draw Bullets
         // change back
-        gameworld.getBullets().forEach((temp) ->
-        {
-            drawBullet((int) temp.getCentre().getX(), (int) temp.getCentre().getY(), (int) temp.getWidth(), (int) temp.getHeight(), temp.getTexture(), g);
-        });
+//        gameworld.getBullets().forEach((temp) ->
+//        {
+//            drawBullet((int) temp.getCentre().getX(), (int) temp.getCentre().getY(), (int) temp.getWidth(), (int) temp.getHeight(), temp.getTexture(), g);
+//        });
 
         //Draw Enemies
         gameworld.getEnemies().forEach((temp) ->
@@ -111,61 +132,34 @@ public class Viewer extends JPanel {
     }
 
     private void drawEnemies(int x, int y, int width, int height, String texture, Graphics g) {
-        File TextureToLoad = new File(texture);  //should work okay on OSX and Linux but check if you have issues depending your eclipse install or if your running this without an IDE
-        try {
-            Image myImage = ImageIO.read(TextureToLoad);
-            //The spirte is 32x32 pixel wide and 4 of them are placed together so we need to grab a different one each time
-            //remember your training :-) computer science everything starts at 0 so 32 pixels gets us to 31
-            int currentPositionInAnimation = ((int) (CurrentAnimationTime % 4) * 32); //slows down animation so every 10 frames we get another frame so every 100ms
-            g.drawImage(myImage, x, y, x + width, y + height, currentPositionInAnimation, 0, currentPositionInAnimation + 31, 32, null);
-
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        //The spirte is 32x32 pixel wide and 4 of them are placed together so we need to grab a different one each time
+        //remember your training :-) computer science everything starts at 0 so 32 pixels gets us to 31
+        int currentPositionInAnimation = ((int) (CurrentAnimationTime % 4) * 32); //slows down animation so every 10 frames we get another frame so every 100ms
+        g.drawImage(enemyTexture, x, y, x + width, y + height, currentPositionInAnimation, 0, currentPositionInAnimation + 31, 32, null);
 
     }
 
     private void drawBackground(Graphics g) {
-        File TextureToLoad = new File("res/spacebackground.png");  //should work okay on OSX and Linux but check if you have issues depending your eclipse install or if your running this without an IDE
-        try {
-            Image myImage = ImageIO.read(TextureToLoad);
-            g.drawImage(myImage, 0, 0, 1000, 1000, 0, 0, 1000, 1000, null);
-
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
+        g.drawImage(backgroundTexture, 0, 0, 1000, 1000, 0, 0, 1000, 1000, null);
     }
 
-    private void drawBullet(int x, int y, int width, int height, String texture, Graphics g) {
-        File TextureToLoad = new File(texture);  //should work okay on OSX and Linux but check if you have issues depending your eclipse install or if your running this without an IDE
-        try {
-            Image myImage = ImageIO.read(TextureToLoad);
-            //64 by 128
-            g.drawImage(myImage, x, y, x + width, y + height, 0, 0, 63, 127, null);
-
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
+//    private void drawBullet(int x, int y, int width, int height, String texture, Graphics g) {
+//        File TextureToLoad = new File(texture);  //should work okay on OSX and Linux but check if you have issues depending your eclipse install or if your running this without an IDE
+//        try {
+//            Image myImage = ImageIO.read(TextureToLoad);
+//            //64 by 128
+//            g.drawImage(myImage, x, y, x + width, y + height, 0, 0, 63, 127, null);
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 
     private void drawPlayer(int x, int y, int width, int height, String texture, Graphics g) {
-        File TextureToLoad = new File(texture);  //should work okay on OSX and Linux but check if you have issues depending your eclipse install or if your running this without an IDE
-        try {
-            Image myImage = ImageIO.read(TextureToLoad);
-            //The spirte is 32x32 pixel wide and 4 of them are placed together so we need to grab a different one each time
-            //remember your training :-) computer science everything starts at 0 so 32 pixels gets us to 31
-            int currentPositionInAnimation = ((int) ((CurrentAnimationTime % 40) / 10)) * 32; //slows down animation so every 10 frames we get another frame so every 100ms
-            g.drawImage(myImage, x, y, x + width, y + height, currentPositionInAnimation, 0, currentPositionInAnimation + 31, 32, null);
-
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        //remember your training :-) computer science everything starts at 0 so 32 pixels gets us to 31
+        int currentPositionInAnimation = ((int) ((CurrentAnimationTime % 40) / 10)) * 32; //slows down animation so every 10 frames we get another frame so every 100ms
+        g.drawImage(playerTexture, x, y, x + width, y + height, currentPositionInAnimation, 0, currentPositionInAnimation + 31, 32, null);
 
         //g.drawImage(img, dx1, dy1, dx2, dy2, sx1, sy1, sx2, sy2, observer));
         //Lighnting Png from https://opengameart.org/content/animated-spaceships  its 32x32 thats why I know to increament by 32 each time
