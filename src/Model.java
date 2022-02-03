@@ -37,6 +37,7 @@ public class Model {
     private Controller controller = Controller.getInstance();
     private CopyOnWriteArrayList<GameObject> EnemiesList = new CopyOnWriteArrayList<GameObject>();
     private CopyOnWriteArrayList<GameObject> BulletList = new CopyOnWriteArrayList<GameObject>();
+    int speed = 10;
     private int Score = 0;
 
     public Model() {
@@ -131,24 +132,25 @@ public class Model {
         //check for movement and if you fired a bullet
 
         if (Controller.getInstance().isKeyAPressed()) {
-            Player.getCentre().ApplyVector(new Vector3f(-2, 0, 0));
+            Player.getCentre().ApplyVector(new Vector3f((speed * -1), 0, 0));
         }
 
         if (Controller.getInstance().isKeyDPressed()) {
-            Player.getCentre().ApplyVector(new Vector3f(2, 0, 0));
+            Player.getCentre().ApplyVector(new Vector3f(speed, 0, 0));
         }
 
         if (Controller.getInstance().isKeyWPressed()) {
-            Player.getCentre().ApplyVector(new Vector3f(0, 2, 0));
+            Player.getCentre().ApplyVector(new Vector3f(0, speed, 0));
         }
 
         if (Controller.getInstance().isKeySPressed()) {
-            Player.getCentre().ApplyVector(new Vector3f(0, -2, 0));
+            Player.getCentre().ApplyVector(new Vector3f(0, (speed * -1), 0));
         }
 
         if (Controller.getInstance().isKeySpacePressed()) {
             attack();
         }
+
 
     }
 

@@ -52,6 +52,7 @@ public class Controller implements KeyListener {
 
     }
 
+    //TODO: Change to KeyCodes and add arrow keys
     @Override
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyChar()) {

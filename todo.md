@@ -1,9 +1,10 @@
-- [ ] Optimisation
-  - [ ] Loading texture
-  - [ ] lmao
+- [x] Optimisation
+  - [x] Loading texture
 - [x] Movement (WASD)
 - [ ] Rotation
-- [ ] Attack (Space)
+- [ ] Attack
+  - [ ] Multidirectional (arrow keys) **ARROW PROGRESS**
+    - [ ] Change to KeyCodes and add arrow keys
 - [ ] Enemies get destroyed on hit
   - [ ] Health
 - [ ] Fix sprite rendering every frame
