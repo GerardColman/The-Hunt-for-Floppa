@@ -78,7 +78,7 @@ public class Viewer extends JPanel {
 
     private void loadTextures(){
         File enemyFile = new File("res/UFO.png");
-        File playerFile = new File("res/floppa.png");
+        File playerFile = new File("res/Lightning.png");
         File backgroundFile = new File("res/spacebackground.png");
         try {
             enemyTexture = ImageIO.read(enemyFile);

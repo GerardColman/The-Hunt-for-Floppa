@@ -151,6 +151,23 @@ public class Model {
             attack();
         }
 
+        //TODO: add model rotation
+        if (Controller.getInstance().isKeyUpPressed()){
+
+        }
+
+        if (Controller.getInstance().isKeyLeftPressed()){
+
+        }
+
+        if (Controller.getInstance().isKeyDownPressed()){
+
+        }
+
+        if (Controller.getInstance().isKeyRightPressed()){
+
+        }
+
 
     }
 

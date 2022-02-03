@@ -36,6 +36,11 @@ public class Controller implements KeyListener {
     private static boolean KeyDPressed = false;
     private static boolean KeyWPressed = false;
     private static boolean KeySpacePressed = false;
+    private static boolean KeyLeftPressed = false;
+    private static boolean KeyRightPressed = false;
+    private static boolean KeyUpPressed = false;
+    private static boolean KeyDownPressed = false;
+
 
     private static final Controller instance = new Controller();
 
@@ -52,24 +57,35 @@ public class Controller implements KeyListener {
 
     }
 
-    //TODO: Change to KeyCodes and add arrow keys
     @Override
     public void keyPressed(KeyEvent e) {
-        switch (e.getKeyChar()) {
-            case 'a':
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_A:
                 setKeyAPressed(true);
                 break;
-            case 's':
+            case KeyEvent.VK_S:
                 setKeySPressed(true);
                 break;
-            case 'w':
+            case KeyEvent.VK_W:
                 setKeyWPressed(true);
                 break;
-            case 'd':
+            case KeyEvent.VK_D:
                 setKeyDPressed(true);
                 break;
-            case ' ':
+            case KeyEvent.VK_SPACE:
                 setKeySpacePressed(true);
+                break;
+            case KeyEvent.VK_UP:
+                setKeyUpPressed(true);
+                break;
+            case KeyEvent.VK_DOWN:
+                setKeyDownPressed(true);
+                break;
+            case KeyEvent.VK_RIGHT:
+                setKeyRightPressed(true);
+                break;
+            case KeyEvent.VK_LEFT:
+                setKeyLeftPressed(true);
                 break;
             default:
                 //System.out.println("Controller test:  Unknown key pressed");
@@ -154,6 +170,38 @@ public class Controller implements KeyListener {
 
     public void setKeySpacePressed(boolean keySpacePressed) {
         KeySpacePressed = keySpacePressed;
+    }
+
+    public boolean isKeyLeftPressed() {
+        return KeyLeftPressed;
+    }
+
+    public static void setKeyLeftPressed(boolean keyLeftPressed) {
+        KeyLeftPressed = keyLeftPressed;
+    }
+
+    public boolean isKeyRightPressed() {
+        return KeyRightPressed;
+    }
+
+    public static void setKeyRightPressed(boolean keyRightPressed) {
+        KeyRightPressed = keyRightPressed;
+    }
+
+    public boolean isKeyUpPressed() {
+        return KeyUpPressed;
+    }
+
+    public static void setKeyUpPressed(boolean keyUpPressed) {
+        KeyUpPressed = keyUpPressed;
+    }
+
+    public boolean isKeyDownPressed() {
+        return KeyDownPressed;
+    }
+
+    public static void setKeyDownPressed(boolean keyDownPressed) {
+        KeyDownPressed = keyDownPressed;
     }
 
 
