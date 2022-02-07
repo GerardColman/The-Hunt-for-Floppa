@@ -53,6 +53,7 @@ public class Viewer extends JPanel {
     Image enemyTexture;
     Image playerTexture;
     Image backgroundTexture;
+    double current_rotation = 0;
 
     public Viewer(Model World) {
         this.gameworld = World;
