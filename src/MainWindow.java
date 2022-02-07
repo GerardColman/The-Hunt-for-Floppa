@@ -130,8 +130,8 @@ public class MainWindow {
 
         // model update
         gameworld.gamelogic();
-        // view update
 
+        // view update
         canvas.updateview();
 
         // Both these calls could be setup as  a thread but we want to simplify the game logic for you.

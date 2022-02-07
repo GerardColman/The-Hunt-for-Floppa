@@ -98,21 +98,33 @@ public class Controller implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        switch (e.getKeyChar()) {
-            case 'a':
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_A:
                 setKeyAPressed(false);
                 break;
-            case 's':
+            case KeyEvent.VK_S:
                 setKeySPressed(false);
                 break;
-            case 'w':
+            case KeyEvent.VK_W:
                 setKeyWPressed(false);
                 break;
-            case 'd':
+            case KeyEvent.VK_D:
                 setKeyDPressed(false);
                 break;
-            case ' ':
+            case KeyEvent.VK_SPACE:
                 setKeySpacePressed(false);
+                break;
+            case KeyEvent.VK_UP:
+                setKeyUpPressed(false);
+                break;
+            case KeyEvent.VK_DOWN:
+                setKeyDownPressed(false);
+                break;
+            case KeyEvent.VK_RIGHT:
+                setKeyRightPressed(false);
+                break;
+            case KeyEvent.VK_LEFT:
+                setKeyLeftPressed(false);
                 break;
             default:
                 //System.out.println("Controller test:  Unknown key pressed");

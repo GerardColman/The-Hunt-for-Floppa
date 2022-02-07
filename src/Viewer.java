@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.awt.LayoutManager;
 import java.awt.Rectangle;
 import java.awt.TexturePaint;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -47,6 +48,7 @@ public class Viewer extends JPanel {
     private long CurrentAnimationTime = 0;
 
     Model gameworld = new Model();
+
 
     Image enemyTexture;
     Image playerTexture;
@@ -114,7 +116,7 @@ public class Viewer extends JPanel {
         drawBackground(g);
 
         //Draw player
-        drawPlayer(x, y, width, height, texture, g);
+        drawPlayer(x, y, width, height, texture, g, gameworld.player_rotation_angle);
 
         //Draw Bullets
         // change back
@@ -156,10 +158,21 @@ public class Viewer extends JPanel {
 //    }
 
 
-    private void drawPlayer(int x, int y, int width, int height, String texture, Graphics g) {
+    private void drawPlayer(int x, int y, int width, int height, String texture, Graphics g, double rotation) {
         //remember your training :-) computer science everything starts at 0 so 32 pixels gets us to 31
-        int currentPositionInAnimation = ((int) ((CurrentAnimationTime % 40) / 10)) * 32; //slows down animation so every 10 frames we get another frame so every 100ms
-        g.drawImage(playerTexture, x, y, x + width, y + height, currentPositionInAnimation, 0, currentPositionInAnimation + 31, 32, null);
+        try{
+            Graphics2D gfx = (Graphics2D) g;
+            int currentPositionInAnimation = ((int) ((CurrentAnimationTime % 40) / 10)) * 32; //slows down animation so every 10 frames we get another frame so every 100ms
+            AffineTransform transform = gfx.getTransform();
+            AffineTransform tx = AffineTransform.getRotateInstance(rotation, x, y);
+            gfx.transform(tx);
+            gfx.drawImage(playerTexture, x, y, x + width, y + height, currentPositionInAnimation, 0, currentPositionInAnimation + 31, 32, null);
+            gfx.setTransform(transform);
+            // g.drawImage(playerTexture, x, y, x + width, y + height, currentPositionInAnimation, 0, currentPositionInAnimation + 31, 32, null);
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+
 
         //g.drawImage(img, dx1, dy1, dx2, dy2, sx1, sy1, sx2, sy2, observer));
         //Lighnting Png from https://opengameart.org/content/animated-spaceships  its 32x32 thats why I know to increament by 32 each time

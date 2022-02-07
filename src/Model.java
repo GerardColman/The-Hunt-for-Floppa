@@ -39,6 +39,7 @@ public class Model {
     private CopyOnWriteArrayList<GameObject> BulletList = new CopyOnWriteArrayList<GameObject>();
     int speed = 10;
     private int Score = 0;
+    public double player_rotation_angle = 0;
 
     public Model() {
 
@@ -127,6 +128,9 @@ public class Model {
 
     private void playerLogic() {
 
+        // Resets rotation angle from previous frame
+        // player_rotation_angle = 0;
+
         // smoother animation is possible if we make a target position  // done but may try to change things for students
 
         //check for movement and if you fired a bullet
@@ -157,7 +161,8 @@ public class Model {
         }
 
         if (Controller.getInstance().isKeyLeftPressed()){
-
+            System.out.println("Left Pressed");
+            player_rotation_angle = -90;
         }
 
         if (Controller.getInstance().isKeyDownPressed()){
@@ -165,7 +170,8 @@ public class Model {
         }
 
         if (Controller.getInstance().isKeyRightPressed()){
-
+            System.out.println("Right Pressed Pressed");
+            player_rotation_angle = 90;
         }
 
 
