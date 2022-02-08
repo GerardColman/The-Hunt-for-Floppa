@@ -27,7 +27,7 @@ public class GameObject {
 	
 	private Point3f centre= new Point3f(0,0,0);			// Centre of object, using 3D as objects may be scaled  
 	private int width=10;
-	private int height=10;
+	private int height=20;
 	private boolean hasTextured=false;
 	private String textureLocation; 
 	private String blanktexture="res/blankSprite.png";

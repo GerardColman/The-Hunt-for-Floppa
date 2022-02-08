@@ -51,7 +51,7 @@ public class Viewer extends JPanel {
 
 
     Image enemyTexture;
-    Image playerTexture;
+    BufferedImage playerTexture;
     Image backgroundTexture;
     double current_rotation = 0;
 
@@ -81,7 +81,7 @@ public class Viewer extends JPanel {
 
     private void loadTextures(){
         File enemyFile = new File("res/UFO.png");
-        File playerFile = new File("res/Lightning.png");
+        File playerFile = new File("res/character.png");
         File backgroundFile = new File("res/spacebackground.png");
         try {
             enemyTexture = ImageIO.read(enemyFile);
@@ -163,11 +163,15 @@ public class Viewer extends JPanel {
         //remember your training :-) computer science everything starts at 0 so 32 pixels gets us to 31
         try{
             Graphics2D gfx = (Graphics2D) g;
-            int currentPositionInAnimation = ((int) ((CurrentAnimationTime % 40) / 10)) * 32; //slows down animation so every 10 frames we get another frame so every 100ms
+            int currentPositionInAnimation = ((int) ((CurrentAnimationTime % 40) / 10)) * 16; //slows down animation so every 10 frames we get another frame so every 100ms
+
+            BufferedImage image = playerTexture.getSubimage(currentPositionInAnimation, 0, 16, 32);
+
             AffineTransform transform = gfx.getTransform();
             AffineTransform tx = AffineTransform.getRotateInstance(rotation, x, y);
             gfx.transform(tx);
-            gfx.drawImage(playerTexture, x, y, x + width, y + height, currentPositionInAnimation, 0, currentPositionInAnimation + 31, 32, null);
+            gfx.drawImage(image, x - width / 2, y - height / 2, width, height, null);
+
             gfx.setTransform(transform);
             // g.drawImage(playerTexture, x, y, x + width, y + height, currentPositionInAnimation, 0, currentPositionInAnimation + 31, 32, null);
         } catch(Exception e){
