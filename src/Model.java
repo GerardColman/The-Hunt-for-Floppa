@@ -162,7 +162,7 @@ public class Model {
 
         if (Controller.getInstance().isKeyLeftPressed()){
             System.out.println("Left Pressed");
-            player_rotation_angle += -0.2;
+            player_rotation_angle += -1.5708;
         }
 
         if (Controller.getInstance().isKeyDownPressed()){
@@ -171,7 +171,7 @@ public class Model {
 
         if (Controller.getInstance().isKeyRightPressed()){
             System.out.println("Right Pressed Pressed");
-            player_rotation_angle += 0.2;
+            player_rotation_angle += 1.5708;
         }
 
 
