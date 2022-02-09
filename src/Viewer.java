@@ -175,11 +175,14 @@ public class Viewer extends JPanel {
             int currentPositionInAnimation = ((int) ((CurrentAnimationTime % 40) / 10)) * 16; //slows down animation so every 10 frames we get another frame so every 100ms
             BufferedImage playerTexture;
             System.out.println("Player_direction = " + gameworld.player_direction);
-            switch (gameworld.player_direction){
+
+            //TODO: FIX THIS
+            switch (gameworld.player_direction) {
                 case "FRONT":
                     playerTexture = playerTextureFront;
                 case "BACK":
                     playerTexture = playerTextureBack;
+                    System.out.println("My balls");
                 case "LEFT":
                     playerTexture = playerTextureLeft;
                 case "RIGHT":
