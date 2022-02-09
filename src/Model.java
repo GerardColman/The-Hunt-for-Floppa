@@ -40,6 +40,7 @@ public class Model {
     int speed = 10;
     private int Score = 0;
     public double player_rotation_angle = 0;
+    public String player_direction = "FRONT";
 
     public Model() {
 
@@ -137,18 +138,22 @@ public class Model {
 
         if (Controller.getInstance().isKeyAPressed()) {
             Player.getCentre().ApplyVector(new Vector3f((speed * -1), 0, 0));
+            player_direction = "LEFT";
         }
 
         if (Controller.getInstance().isKeyDPressed()) {
             Player.getCentre().ApplyVector(new Vector3f(speed, 0, 0));
+            player_direction = "RIGHT";
         }
 
         if (Controller.getInstance().isKeyWPressed()) {
             Player.getCentre().ApplyVector(new Vector3f(0, speed, 0));
+            player_direction = "BACK";
         }
 
         if (Controller.getInstance().isKeySPressed()) {
             Player.getCentre().ApplyVector(new Vector3f(0, (speed * -1), 0));
+            player_direction = "FRONT";
         }
 
         if (Controller.getInstance().isKeySpacePressed()) {
@@ -161,7 +166,7 @@ public class Model {
         }
 
         if (Controller.getInstance().isKeyLeftPressed()){
-            System.out.println("Left Pressed");
+            // System.out.println("Left Pressed");
             player_rotation_angle += -1.5708;
         }
 
@@ -170,7 +175,7 @@ public class Model {
         }
 
         if (Controller.getInstance().isKeyRightPressed()){
-            System.out.println("Right Pressed Pressed");
+            // System.out.println("Right Pressed Pressed");
             player_rotation_angle += 1.5708;
         }
 

@@ -51,7 +51,10 @@ public class Viewer extends JPanel {
 
 
     Image enemyTexture;
-    BufferedImage playerTexture;
+    BufferedImage playerTextureFront;
+    BufferedImage playerTextureBack;
+    BufferedImage playerTextureLeft;
+    BufferedImage playerTextureRight;
     Image backgroundTexture;
     double current_rotation = 0;
 
@@ -81,11 +84,17 @@ public class Viewer extends JPanel {
 
     private void loadTextures(){
         File enemyFile = new File("res/UFO.png");
-        File playerFile = new File("res/character_front.png");
+        File playerFileFront = new File("res/character_front.png");
+        File playerFileBack = new File("res/character_back.png");
+        File playerFileLeft = new File("res/character_left.png");
+        File playerFileRight = new File("res/character_right.png");
         File backgroundFile = new File("res/spacebackground.png");
         try {
             enemyTexture = ImageIO.read(enemyFile);
-            playerTexture = ImageIO.read(playerFile);
+            playerTextureFront = ImageIO.read(playerFileFront);
+            playerTextureBack = ImageIO.read(playerFileBack);
+            playerTextureLeft = ImageIO.read(playerFileLeft);
+            playerTextureRight = ImageIO.read(playerFileRight);
             backgroundTexture = ImageIO.read(backgroundFile);
         } catch (Exception e){
             e.printStackTrace();
@@ -164,7 +173,20 @@ public class Viewer extends JPanel {
         try{
             Graphics2D gfx = (Graphics2D) g;
             int currentPositionInAnimation = ((int) ((CurrentAnimationTime % 40) / 10)) * 16; //slows down animation so every 10 frames we get another frame so every 100ms
-
+            BufferedImage playerTexture;
+            System.out.println("Player_direction = " + gameworld.player_direction);
+            switch (gameworld.player_direction){
+                case "FRONT":
+                    playerTexture = playerTextureFront;
+                case "BACK":
+                    playerTexture = playerTextureBack;
+                case "LEFT":
+                    playerTexture = playerTextureLeft;
+                case "RIGHT":
+                    playerTexture = playerTextureRight;
+                default:
+                    playerTexture = playerTextureFront;
+            }
             BufferedImage image = playerTexture.getSubimage(currentPositionInAnimation, 0, 16, 32);
 
             AffineTransform transform = gfx.getTransform();
