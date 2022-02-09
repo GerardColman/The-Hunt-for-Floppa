@@ -126,7 +126,7 @@ public class Viewer extends JPanel {
         drawBackground(g);
 
         //Draw player
-        drawPlayer(x, y, width, height, texture, g, gameworld.player_rotation_angle);
+        drawPlayer(x, y, width, height, texture, g, gameworld.getPlayer().getPlayer_rotation_angle());
 
         //Draw Bullets
         // change back
@@ -174,10 +174,9 @@ public class Viewer extends JPanel {
             Graphics2D gfx = (Graphics2D) g;
             int currentPositionInAnimation = ((int) ((CurrentAnimationTime % 40) / 10)) * 16; //slows down animation so every 10 frames we get another frame so every 100ms
             BufferedImage playerTexture;
-            System.out.println("Player_direction = " + gameworld.player_direction);
+            System.out.println("Player_direction = " + gameworld.getPlayer().getPlayer_direction());
 
-            //TODO: FIX THIS
-            switch (gameworld.player_direction) {
+            switch (gameworld.getPlayer().getPlayer_direction()) {
                 case "FRONT":
                     playerTexture = playerTextureFront;
                     break;

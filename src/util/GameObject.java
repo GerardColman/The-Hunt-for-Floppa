@@ -31,8 +31,19 @@ public class GameObject {
 	private boolean hasTextured=false;
 	private String textureLocation; 
 	private String blanktexture="res/blankSprite.png";
-	
-	public GameObject() {  
+
+	public int speed = 5;
+	public double player_rotation_angle = 0;
+	public String player_direction = "FRONT";
+	public boolean is_attacking = false;
+
+	public GameObject(Point3f centre, int width, int height) {
+		this.centre = centre;
+		this.width = width;
+		this.height = height;
+	}
+
+	public GameObject() {
 		
 	}
 	
@@ -71,7 +82,38 @@ public class GameObject {
 		 
 		return blanktexture; 
 	}
-  
+
+	public int getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(int speed) {
+		this.speed = speed;
+	}
+
+	public double getPlayer_rotation_angle() {
+		return player_rotation_angle;
+	}
+
+	public void setPlayer_rotation_angle(double player_rotation_angle) {
+		this.player_rotation_angle = player_rotation_angle;
+	}
+
+	public String getPlayer_direction() {
+		return player_direction;
+	}
+
+	public void setPlayer_direction(String player_direction) {
+		this.player_direction = player_direction;
+	}
+
+	public boolean isIs_attacking() {
+		return is_attacking;
+	}
+
+	public void setIs_attacking(boolean is_attacking) {
+		this.is_attacking = is_attacking;
+	}
 }
 
 /*

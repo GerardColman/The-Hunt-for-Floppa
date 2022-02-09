@@ -37,20 +37,19 @@ public class Model {
     private Controller controller = Controller.getInstance();
     private CopyOnWriteArrayList<GameObject> EnemiesList = new CopyOnWriteArrayList<GameObject>();
     private CopyOnWriteArrayList<GameObject> BulletList = new CopyOnWriteArrayList<GameObject>();
-    int speed = 5;
     private int Score = 0;
-    public double player_rotation_angle = 0;
-    public String player_direction = "FRONT";
+
+
 
     public Model() {
 
 
         //setup game world
         //Player
-        Player = new GameObject("res/Lightning.png", 50, 50, new Point3f(500, 500, 0));
+        Player = new GameObject("res/Lightning.png", 32, 64, new Point3f(500, 500, 0));
 
         //Enemies  starting with four
-        EnemiesList.add(new GameObject("res/UFO.png", 50, 50, new Point3f(500, 300, 0)));
+        EnemiesList.add(new GameObject("res/floppa.png", 50, 50, new Point3f(500, 300, 0)));
 //        EnemiesList.add(new GameObject("res/floppa.png", 50, 50, new Point3f(((float) Math.random() * 50 + 500), 0, 0)));
 //        EnemiesList.add(new GameObject("res/floppa.png", 50, 50, new Point3f(((float) Math.random() * 100 + 500), 0, 0)));
 //        EnemiesList.add(new GameObject("res/floppa.png", 50, 50, new Point3f(((float) Math.random() * 100 + 400), 0, 0)));
@@ -79,20 +78,40 @@ public class Model {
 
 
         // this is a way to increment across the array list data structure
+        collision();
 
 
-        //see if they hit anything
-        // using enhanced for-loop style as it makes it alot easier both code wise and reading wise too
-        for (GameObject temp : EnemiesList) {
-            for (GameObject Bullet : BulletList) {
-                if (Math.abs(temp.getCentre().getX() - Bullet.getCentre().getX()) < temp.getWidth()
-                        && Math.abs(temp.getCentre().getY() - Bullet.getCentre().getY()) < temp.getHeight()) {
-                    EnemiesList.remove(temp);
-                    BulletList.remove(Bullet);
-                    Score++;
+    }
+
+    private void collision(){
+        playerEnemyCollision();
+    }
+
+    private void playerEnemyCollision(){
+        for(GameObject temp : EnemiesList) {
+            if (Math.abs(temp.getCentre().getX() - Player.getCentre().getX()) < temp.getWidth()
+                    && Math.abs(temp.getCentre().getY() - Player.getCentre().getY()) < temp.getHeight()) {
+
+                switch (Player.getPlayer_direction()){
+                    case "FRONT":
+                        Player.getCentre().ApplyVector(new Vector3f(0, Player.getSpeed(), 0));
+                        break;
+                    case "BACK":
+                        Player.getCentre().ApplyVector(new Vector3f(0, (Player.getSpeed() * -1), 0));
+                        break;
+                    case "LEFT":
+                        Player.getCentre().ApplyVector(new Vector3f(Player.getSpeed(), 0, 0));
+                        break;
+                    case "RIGHT":
+                        Player.getCentre().ApplyVector(new Vector3f((Player.getSpeed() * -1), 0, 0));
                 }
+                // EnemiesList.remove(temp);
+                // Score++;
             }
         }
+    }
+
+    private void playerWallCollision(){
 
     }
 
@@ -137,27 +156,32 @@ public class Model {
         //check for movement and if you fired a bullet
 
         if (Controller.getInstance().isKeyAPressed()) {
-            Player.getCentre().ApplyVector(new Vector3f((speed * -1), 0, 0));
-            player_direction = "LEFT";
+            Player.getCentre().ApplyVector(new Vector3f((Player.getSpeed() * -1), 0, 0));
+            Player.setPlayer_direction("LEFT");
         }
 
         if (Controller.getInstance().isKeyDPressed()) {
-            Player.getCentre().ApplyVector(new Vector3f(speed, 0, 0));
-            player_direction = "RIGHT";
+            Player.getCentre().ApplyVector(new Vector3f(Player.getSpeed(), 0, 0));
+            Player.setPlayer_direction("RIGHT");
         }
 
         if (Controller.getInstance().isKeyWPressed()) {
-            Player.getCentre().ApplyVector(new Vector3f(0, speed, 0));
-            player_direction = "BACK";
+            Player.getCentre().ApplyVector(new Vector3f(0, Player.getSpeed(), 0));
+            Player.setPlayer_direction("BACK");
         }
 
         if (Controller.getInstance().isKeySPressed()) {
-            Player.getCentre().ApplyVector(new Vector3f(0, (speed * -1), 0));
-            player_direction = "FRONT";
+            Player.getCentre().ApplyVector(new Vector3f(0, (Player.getSpeed() * -1), 0));
+            Player.setPlayer_direction("FRONT");
         }
 
         if (Controller.getInstance().isKeySpacePressed()) {
+            Player.setIs_attacking(true);
             attack();
+        }
+
+        if (!Controller.getInstance().isKeySpacePressed()) {
+            Player.setIs_attacking(false);
         }
 
         if (Controller.getInstance().isKeyUpPressed()){
@@ -165,8 +189,7 @@ public class Model {
         }
 
         if (Controller.getInstance().isKeyLeftPressed()){
-            // System.out.println("Left Pressed");
-            player_rotation_angle += -1.5708;
+
         }
 
         if (Controller.getInstance().isKeyDownPressed()){
@@ -174,16 +197,15 @@ public class Model {
         }
 
         if (Controller.getInstance().isKeyRightPressed()){
-            // System.out.println("Right Pressed Pressed");
-            player_rotation_angle += 1.5708;
+
         }
 
         if(Controller.getInstance().isKeyShiftPressed()){
-            speed = 9;
+            Player.setSpeed(9);
         }
 
         if(!Controller.getInstance().isKeyShiftPressed()){
-            speed = 5;
+            Player.setSpeed(5);
         }
     }
 
@@ -194,7 +216,7 @@ public class Model {
         3. Destroy enemy
          */
 
-        Sword = new GameObject("res/bullet.png",20,20, getPlayer().getCentre().PlusVector(new Vector3f(0, 1, 0)));
+
     }
 
 
