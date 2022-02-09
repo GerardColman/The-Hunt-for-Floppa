@@ -180,16 +180,32 @@ public class Viewer extends JPanel {
             switch (gameworld.player_direction) {
                 case "FRONT":
                     playerTexture = playerTextureFront;
+                    break;
                 case "BACK":
                     playerTexture = playerTextureBack;
-                    System.out.println("My balls");
+                    break;
                 case "LEFT":
                     playerTexture = playerTextureLeft;
+                    break;
                 case "RIGHT":
                     playerTexture = playerTextureRight;
+                    break;
                 default:
                     playerTexture = playerTextureFront;
+                    break;
             }
+
+//            if(gameworld.player_direction == "FRONT"){
+//                playerTexture = playerTextureFront;
+//            }else if(gameworld.player_direction == "BACK"){
+//                playerTexture = playerTextureBack;
+//            }else if(gameworld.player_direction == "LEFT"){
+//                playerTexture = playerTextureLeft;
+//            }else if(gameworld.player_direction == "RIGHT"){
+//                playerTexture = playerTextureRight;
+//            }else{
+//                playerTexture = playerTextureFront;
+//            }
             BufferedImage image = playerTexture.getSubimage(currentPositionInAnimation, 0, 16, 32);
 
             AffineTransform transform = gfx.getTransform();

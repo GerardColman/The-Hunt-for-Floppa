@@ -41,6 +41,16 @@ public class Controller implements KeyListener {
     private static boolean KeyUpPressed = false;
     private static boolean KeyDownPressed = false;
 
+    public boolean isKeyShiftPressed() {
+        return KeyShiftPressed;
+    }
+
+    public void setKeyShiftPressed(boolean keyShiftPressed) {
+        KeyShiftPressed = keyShiftPressed;
+    }
+
+    private static boolean KeyShiftPressed = false;
+
 
     private static final Controller instance = new Controller();
 
@@ -87,8 +97,11 @@ public class Controller implements KeyListener {
             case KeyEvent.VK_LEFT:
                 setKeyLeftPressed(true);
                 break;
+            case KeyEvent.VK_SHIFT:
+                setKeyShiftPressed(true);
+                break;
             default:
-                //System.out.println("Controller test:  Unknown key pressed");
+                System.out.println("Controller:  Unknown key pressed");
                 break;
         }
 
@@ -125,6 +138,9 @@ public class Controller implements KeyListener {
                 break;
             case KeyEvent.VK_LEFT:
                 setKeyLeftPressed(false);
+                break;
+            case KeyEvent.VK_SHIFT:
+                setKeyShiftPressed(false);
                 break;
             default:
                 //System.out.println("Controller test:  Unknown key pressed");

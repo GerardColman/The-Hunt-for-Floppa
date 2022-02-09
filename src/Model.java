@@ -37,7 +37,7 @@ public class Model {
     private Controller controller = Controller.getInstance();
     private CopyOnWriteArrayList<GameObject> EnemiesList = new CopyOnWriteArrayList<GameObject>();
     private CopyOnWriteArrayList<GameObject> BulletList = new CopyOnWriteArrayList<GameObject>();
-    int speed = 10;
+    int speed = 5;
     private int Score = 0;
     public double player_rotation_angle = 0;
     public String player_direction = "FRONT";
@@ -160,7 +160,6 @@ public class Model {
             attack();
         }
 
-        //TODO: add model rotation
         if (Controller.getInstance().isKeyUpPressed()){
 
         }
@@ -179,7 +178,13 @@ public class Model {
             player_rotation_angle += 1.5708;
         }
 
+        if(Controller.getInstance().isKeyShiftPressed()){
+            speed = 9;
+        }
 
+        if(!Controller.getInstance().isKeyShiftPressed()){
+            speed = 5;
+        }
     }
 
     private void attack() {
