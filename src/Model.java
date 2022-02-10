@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Vector;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import util.GameObject;
@@ -33,7 +34,6 @@ SOFTWARE.
 public class Model {
 
     private GameObject Player;
-    private GameObject Sword;
     private Controller controller = Controller.getInstance();
     private CopyOnWriteArrayList<GameObject> EnemiesList = new CopyOnWriteArrayList<GameObject>();
     private CopyOnWriteArrayList<GameObject> BulletList = new CopyOnWriteArrayList<GameObject>();
@@ -215,8 +215,21 @@ public class Model {
         2. Check if it collides
         3. Destroy enemy
          */
-
-
+        Vector3f vector;
+        switch (Player.getPlayer_direction()){
+            case "FRONT":
+                vector = new Vector3f(0,-64,0);
+            case "BACK":
+                vector = new Vector3f(0,64,0);
+            case "LEFT":
+                vector = new Vector3f(-32,0,0);
+            case "RIGHT":
+                vector = new Vector3f(32,0,0);
+            default:
+                vector = new Vector3f(0,0,0);
+        }
+        GameObject Sword = new GameObject(Player.getCentre().PlusVector(vector), 32, 64);
+        //Check if sword collides with enemy
     }
 
 
