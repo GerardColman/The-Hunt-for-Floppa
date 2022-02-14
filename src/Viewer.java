@@ -55,7 +55,21 @@ public class Viewer extends JPanel {
     BufferedImage playerTextureBack;
     BufferedImage playerTextureLeft;
     BufferedImage playerTextureRight;
+    BufferedImage playerAttackFrontTexture;
+
+    int attack_remaining = 0;
+    int old_speed;
+
+    public BufferedImage getPlayerAttackFrontTexture() {
+        return playerAttackFrontTexture;
+    }
+
+    public void setPlayerAttackFrontTexture(BufferedImage playerAttackFrontTexture) {
+        this.playerAttackFrontTexture = playerAttackFrontTexture;
+    }
+
     Image backgroundTexture;
+
     double current_rotation = 0;
 
     public Viewer(Model World) {
@@ -83,13 +97,22 @@ public class Viewer extends JPanel {
     }
 
     private void loadTextures(){
-        //TODO: Make file path equal to path in gameObject
+
+        // Loading enemy assets
         File enemyFile = new File("res/test_enemy.png");
+
+        // Loading level assets
+        File backgroundFile = new File("res/spacebackground.png");
+
+        //Loading player assets
         File playerFileFront = new File("res/character_front.png");
         File playerFileBack = new File("res/character_back.png");
         File playerFileLeft = new File("res/character_left.png");
         File playerFileRight = new File("res/character_right.png");
-        File backgroundFile = new File("res/spacebackground.png");
+
+        //Loading attack assets
+        File playerAttackFront = new File("res/char_attack_front.png");
+
         try {
             enemyTexture = ImageIO.read(enemyFile);
             playerTextureFront = ImageIO.read(playerFileFront);
@@ -97,6 +120,7 @@ public class Viewer extends JPanel {
             playerTextureLeft = ImageIO.read(playerFileLeft);
             playerTextureRight = ImageIO.read(playerFileRight);
             backgroundTexture = ImageIO.read(backgroundFile);
+            playerAttackFrontTexture = ImageIO.read(playerAttackFront);
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -126,8 +150,25 @@ public class Viewer extends JPanel {
         //Draw background
         drawBackground(g);
 
+        if(gameworld.getPlayer().isIs_attacking()){
+            attack_remaining = 16;
+            old_speed = gameworld.getPlayer().getSpeed();
+            gameworld.getPlayer().setSpeed(0);
+        }
+
         //Draw player
-        drawPlayer(x, y, width, height, texture, g, gameworld.getPlayer().getPlayer_rotation_angle());
+        if(attack_remaining != 0){
+            //Call draw attack instead
+            drawPlayerAttack(x, y, width, height, texture, g, gameworld.getPlayer().getPlayer_rotation_angle());
+        }else{
+            gameworld.getPlayer().setSpeed(old_speed);
+            drawPlayer(x, y, width, height, texture, g, gameworld.getPlayer().getPlayer_rotation_angle());
+        }
+
+        if(attack_remaining > 0){
+            attack_remaining--;
+        }
+
 
         //Draw Bullets
         // change back
@@ -196,17 +237,53 @@ public class Viewer extends JPanel {
                     break;
             }
 
-//            if(gameworld.player_direction == "FRONT"){
-//                playerTexture = playerTextureFront;
-//            }else if(gameworld.player_direction == "BACK"){
-//                playerTexture = playerTextureBack;
-//            }else if(gameworld.player_direction == "LEFT"){
-//                playerTexture = playerTextureLeft;
-//            }else if(gameworld.player_direction == "RIGHT"){
-//                playerTexture = playerTextureRight;
-//            }else{
-//                playerTexture = playerTextureFront;
-//            }
+            BufferedImage image = playerTexture.getSubimage(currentPositionInAnimation, 0, 16, 32);
+
+            AffineTransform transform = gfx.getTransform();
+            AffineTransform tx = AffineTransform.getRotateInstance(rotation, x, y);
+            gfx.transform(tx);
+            gfx.drawImage(image, x - width / 2, y - height / 2, width, height, null);
+
+            gfx.setTransform(transform);
+            // g.drawImage(playerTexture, x, y, x + width, y + height, currentPositionInAnimation, 0, currentPositionInAnimation + 31, 32, null);
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+
+
+        //g.drawImage(img, dx1, dy1, dx2, dy2, sx1, sy1, sx2, sy2, observer));
+        //Lighnting Png from https://opengameart.org/content/animated-spaceships  its 32x32 thats why I know to increament by 32 each time
+        // Bullets from https://opengameart.org/forumtopic/tatermands-art
+        // background image from https://www.needpix.com/photo/download/677346/space-stars-nebula-background-galaxy-universe-free-pictures-free-photos-free-images
+
+    }
+
+    private void drawPlayerAttack(int x, int y, int width, int height, String texture, Graphics g, double rotation) {
+        //remember your training :-) computer science everything starts at 0 so 32 pixels gets us to 31
+        try{
+            Graphics2D gfx = (Graphics2D) g;
+            int currentPositionInAnimation = ((int) ((CurrentAnimationTime % 40) / 10)) * 16; //slows down animation so every 10 frames we get another frame so every 100ms
+            BufferedImage playerTexture;
+            System.out.println("Player_direction = " + gameworld.getPlayer().getPlayer_direction());
+
+            switch (gameworld.getPlayer().getPlayer_direction()) {
+                case "FRONT":
+                    playerTexture = playerAttackFrontTexture;
+                    break;
+                case "BACK":
+                    playerTexture = playerAttackFrontTexture;
+                    break;
+                case "LEFT":
+                    playerTexture = playerAttackFrontTexture;
+                    break;
+                case "RIGHT":
+                    playerTexture = playerAttackFrontTexture;
+                    break;
+                default:
+                    playerTexture = playerAttackFrontTexture;
+                    break;
+            }
+
             BufferedImage image = playerTexture.getSubimage(currentPositionInAnimation, 0, 16, 32);
 
             AffineTransform transform = gfx.getTransform();
