@@ -9,6 +9,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.Buffer;
 import java.util.Iterator;
 
 import javax.imageio.ImageIO;
@@ -50,15 +51,42 @@ public class Viewer extends JPanel {
     Model gameworld = new Model();
 
 
+    int attack_remaining = 0;
+
     Image enemyTexture;
     BufferedImage playerTextureFront;
     BufferedImage playerTextureBack;
     BufferedImage playerTextureLeft;
     BufferedImage playerTextureRight;
     BufferedImage playerAttackFrontTexture;
+    BufferedImage playerAttackBackTexture;
+    BufferedImage playerAttackRightTexture;
+    BufferedImage playerAttackLeftTexture;
 
-    int attack_remaining = 0;
-    int old_speed;
+    public BufferedImage getPlayerAttackRightTexture() {
+        return playerAttackRightTexture;
+    }
+
+    public void setPlayerAttackRightTexture(BufferedImage playerAttackRightTexture) {
+        this.playerAttackRightTexture = playerAttackRightTexture;
+    }
+
+    public BufferedImage getPlayerAttackLeftTexture() {
+        return playerAttackLeftTexture;
+    }
+
+    public void setPlayerAttackLeftTexture(BufferedImage playerAttackLeftTexture) {
+        this.playerAttackLeftTexture = playerAttackLeftTexture;
+    }
+
+    public BufferedImage getPlayerAttackBackTexture() {
+        return playerAttackBackTexture;
+    }
+
+    public void setPlayerAttackBackTexture(BufferedImage playerAttackBackTexture) {
+        this.playerAttackBackTexture = playerAttackBackTexture;
+    }
+
 
     public BufferedImage getPlayerAttackFrontTexture() {
         return playerAttackFrontTexture;
@@ -112,6 +140,9 @@ public class Viewer extends JPanel {
 
         //Loading attack assets
         File playerAttackFront = new File("res/char_attack_front.png");
+        File playerAttackBack = new File("res/char_attack_back.png");
+        File playerAttackRight = new File("res/char_attack_right.png");
+        File playerAttackLeft = new File("res/char_attack_left.png");
 
         try {
             enemyTexture = ImageIO.read(enemyFile);
@@ -121,6 +152,9 @@ public class Viewer extends JPanel {
             playerTextureRight = ImageIO.read(playerFileRight);
             backgroundTexture = ImageIO.read(backgroundFile);
             playerAttackFrontTexture = ImageIO.read(playerAttackFront);
+            playerAttackBackTexture = ImageIO.read(playerAttackBack);
+            playerAttackRightTexture = ImageIO.read(playerAttackRight);
+            playerAttackLeftTexture = ImageIO.read(playerAttackLeft);
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -152,8 +186,6 @@ public class Viewer extends JPanel {
 
         if(gameworld.getPlayer().isIs_attacking()){
             attack_remaining = 16;
-            old_speed = gameworld.getPlayer().getSpeed();
-            gameworld.getPlayer().setSpeed(0);
         }
 
         //Draw player
@@ -161,7 +193,6 @@ public class Viewer extends JPanel {
             //Call draw attack instead
             drawPlayerAttack(x, y, width, height, texture, g, gameworld.getPlayer().getPlayer_rotation_angle());
         }else{
-            gameworld.getPlayer().setSpeed(old_speed);
             drawPlayer(x, y, width, height, texture, g, gameworld.getPlayer().getPlayer_rotation_angle());
         }
 
@@ -271,13 +302,13 @@ public class Viewer extends JPanel {
                     playerTexture = playerAttackFrontTexture;
                     break;
                 case "BACK":
-                    playerTexture = playerAttackFrontTexture;
+                    playerTexture = playerAttackBackTexture;
                     break;
                 case "LEFT":
-                    playerTexture = playerAttackFrontTexture;
+                    playerTexture = playerAttackLeftTexture;
                     break;
                 case "RIGHT":
-                    playerTexture = playerAttackFrontTexture;
+                    playerTexture = playerAttackRightTexture;
                     break;
                 default:
                     playerTexture = playerAttackFrontTexture;
