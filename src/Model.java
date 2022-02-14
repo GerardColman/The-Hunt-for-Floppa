@@ -228,7 +228,7 @@ public class Model {
             default:
                 vector = new Vector3f(0,0,0);
         }
-        GameObject Sword = new GameObject(Player.getCentre().PlusVector(vector), 32, 64);
+        GameObject swordHitBox = new GameObject(Player.getCentre().PlusVector(vector), 32, 64);
         //Check if sword collides with enemy
     }
 
