@@ -31,6 +31,7 @@ public class GameObject {
 	private boolean hasTextured=false;
 	private String textureLocation; 
 	private String blanktexture="res/blankSprite.png";
+	public int health = 3;
 
 	public int speed = 4;
 	public double player_rotation_angle = 0;

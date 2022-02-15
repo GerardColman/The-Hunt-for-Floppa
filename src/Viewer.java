@@ -127,7 +127,7 @@ public class Viewer extends JPanel {
     private void loadTextures(){
 
         // Loading enemy assets
-        File enemyFile = new File("res/test_enemy.png");
+        File enemyFile = new File("res/test_wall.png");
 
         // Loading level assets
         File backgroundFile = new File("res/spacebackground.png");
@@ -185,7 +185,7 @@ public class Viewer extends JPanel {
         drawBackground(g);
 
         if(gameworld.getPlayer().isIs_attacking()){
-            attack_remaining = 16;
+            attack_remaining = 4;
         }
 
         //Draw player
@@ -248,7 +248,7 @@ public class Viewer extends JPanel {
             Graphics2D gfx = (Graphics2D) g;
             int currentPositionInAnimation = ((int) ((CurrentAnimationTime % 40) / 10)) * 16; //slows down animation so every 10 frames we get another frame so every 100ms
             BufferedImage playerTexture;
-            System.out.println("Player_direction = " + gameworld.getPlayer().getPlayer_direction());
+            //System.out.println("Player_direction = " + gameworld.getPlayer().getPlayer_direction());
 
             switch (gameworld.getPlayer().getPlayer_direction()) {
                 case "FRONT":

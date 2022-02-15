@@ -37,7 +37,9 @@ public class Model {
     private Controller controller = Controller.getInstance();
     private CopyOnWriteArrayList<GameObject> EnemiesList = new CopyOnWriteArrayList<GameObject>();
     private CopyOnWriteArrayList<GameObject> BulletList = new CopyOnWriteArrayList<GameObject>();
+    private CopyOnWriteArrayList<GameObject> WallList = new CopyOnWriteArrayList<GameObject>();
     private int Score = 0;
+    public boolean gameOver = false;
 
 
 
@@ -49,8 +51,8 @@ public class Model {
         Player = new GameObject("res/Lightning.png", 32, 64, new Point3f(500, 500, 0));
 
         //Enemies  starting with four
-        EnemiesList.add(new GameObject("res/test_enemy.png", 32, 128, new Point3f(500, 300, 0)));
-//        EnemiesList.add(new GameObject("res/floppa.png", 50, 50, new Point3f(((float) Math.random() * 50 + 500), 0, 0)));
+        EnemiesList.add(new GameObject("res/test_wall.png", 128, 32, new Point3f(500, 300, 0)));
+//        EnemiesList.add(new GameObject("res/UFO.png", 50, 50, new Point3f(((float) Math.random() * 50 + 500), 0, 0)));
 //        EnemiesList.add(new GameObject("res/floppa.png", 50, 50, new Point3f(((float) Math.random() * 100 + 500), 0, 0)));
 //        EnemiesList.add(new GameObject("res/floppa.png", 50, 50, new Point3f(((float) Math.random() * 100 + 400), 0, 0)));
 
@@ -84,7 +86,8 @@ public class Model {
     }
 
     private void collision(){
-        playerEnemyCollision();
+        //playerEnemyCollision();
+        playerWallCollision();
     }
 
     private void playerEnemyCollision(){
@@ -92,27 +95,47 @@ public class Model {
             if (Math.abs(temp.getCentre().getX() - Player.getCentre().getX()) < temp.getWidth()
                     && Math.abs(temp.getCentre().getY() - Player.getCentre().getY()) < temp.getHeight()) {
 
-                switch (Player.getPlayer_direction()){
-                    case "FRONT":
-                        Player.getCentre().ApplyVector(new Vector3f(0, Player.getSpeed(), 0));
-                        break;
-                    case "BACK":
-                        Player.getCentre().ApplyVector(new Vector3f(0, (Player.getSpeed() * -1), 0));
-                        break;
-                    case "LEFT":
-                        Player.getCentre().ApplyVector(new Vector3f(Player.getSpeed(), 0, 0));
-                        break;
-                    case "RIGHT":
-                        Player.getCentre().ApplyVector(new Vector3f((Player.getSpeed() * -1), 0, 0));
-                }
-                // EnemiesList.remove(temp);
-                // Score++;
+//                switch (Player.getPlayer_direction()){
+//                    case "FRONT":
+//                        Player.getCentre().ApplyVector(new Vector3f(0, Player.getSpeed(), 0));
+//                        break;
+//                    case "BACK":
+//                        Player.getCentre().ApplyVector(new Vector3f(0, (Player.getSpeed() * -1), 0));
+//                        break;
+//                    case "LEFT":
+//                        Player.getCentre().ApplyVector(new Vector3f(Player.getSpeed(), 0, 0));
+//                        break;
+//                    case "RIGHT":
+//                        Player.getCentre().ApplyVector(new Vector3f((Player.getSpeed() * -1), 0, 0));
+//                }
+//                 EnemiesList.remove(temp);
+//                 Score++;
             }
         }
     }
 
     private void playerWallCollision(){
 
+        // North face of wall
+        //Player is touching the Y coords of wall and within X confines of wall
+        //System.out.println("IN WALL FUNCTION");
+        for(GameObject wall : EnemiesList){
+//            if(wall.getCentre().getY() == (Player.getCentre().getY() + Player.getHeight())
+//               && (wall.getCentre().getX() <=  Player.getCentre().getX())
+//               && (wall.getCentre().getX() + wall.getWidth()) >= (Player.getCentre().getX() + Player.getWidth())){
+//                System.out.println("COLLIDING WITH WALL");
+//                Player.getCentre().ApplyVector(new Vector3f(0, Player.getSpeed(), 0));
+//            }
+
+            //TODO: Ask someone smarter about issue
+            if((wall.getCentre().getX() < Player.getCentre().getX() || wall.getCentre().getX() < Player.getCentre().getX() + Player.getWidth())
+                    && (wall.getCentre().getX() + wall.getWidth() > Player.getCentre().getX() || wall.getCentre().getX() + wall.getWidth() > Player.getCentre().getX() + Player.getWidth())
+                    && (wall.getCentre().getY() < Player.getCentre().getY() || wall.getCentre().getY() < Player.getCentre().getY() + Player.getHeight())
+                    && (wall.getCentre().getY() + wall.getHeight()) > Player.getCentre().getY() + Player.getHeight()) {
+                System.out.println("COLLIDING WITH WALL");
+                Player.getCentre().ApplyVector(new Vector3f(0, Player.getSpeed(), 0));
+            }
+        }
     }
 
     private void enemyLogic() {
@@ -229,7 +252,11 @@ public class Model {
                 vector = new Vector3f(0,0,0);
         }
         GameObject swordHitBox = new GameObject(Player.getCentre().PlusVector(vector), 32, 64);
-        //Check if sword collides with enemy
+        for(GameObject enemy : EnemiesList){
+            if(Math.abs(enemy.getCentre().getX() - swordHitBox.getCentre().getX()) < enemy.getWidth() && Math.abs(enemy.getCentre().getY() - swordHitBox.getCentre().getY()) < enemy.getHeight()){
+                EnemiesList.remove(enemy);
+            }
+        }
     }
 
 
