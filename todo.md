@@ -4,9 +4,13 @@
 - [ ] Paint Levels
   - [ ] Plan
     - **MUST HAVE ENDING**
-    - Could have obstacles (objects you cant move through)
+    - Tiles
+      - Spikes/Pits
+      - Obstacles
+      - Door
   - [ ] Implement
 - [ ] Player health
 - [ ] Enemy AI
 - [ ] Improve start menu
 - [ ] Music
+- [ ] Change game name to "The Hunt For Floppa"

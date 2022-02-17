@@ -43,7 +43,7 @@ SOFTWARE.
 
 
 public class MainWindow {
-    private static JFrame frame = new JFrame("Floppa's Adventure");   // Change to the name of your game
+    private static JFrame frame = new JFrame("The Hunt For Floppa");   // Change to the name of your game
     private static Model gameworld = new Model();
     private static Viewer canvas = new Viewer(gameworld);
     private KeyListener Controller = new Controller();
@@ -64,7 +64,7 @@ public class MainWindow {
 
 
         JButton startMenuButton = new JButton("Start Game");  // start button
-        JLabel titleText = new JLabel("Floppa's Adventure");
+        JLabel titleText = new JLabel("The Hunt For Floppa");
 
         startMenuButton.addActionListener(new ActionListener() {
             @Override
