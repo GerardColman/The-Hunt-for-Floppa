@@ -1,10 +1,12 @@
-- [x] Optimisation
-  - [x] Loading texture
-- [x] Movement (WASD)
-- [ ] Rotation
-- [ ] Attack
-  - [ ] Multidirectional (arrow keys) **ARROW PROGRESS**
-    - [ ] Change to KeyCodes and add arrow keys
-- [ ] Enemies get destroyed on hit
-  - [ ] Health
-- [ ] Fix sprite rendering every frame
+- [ ] Collision
+- [ ] Walls
+  - Add Texture to walls
+- [ ] Paint Levels
+  - [ ] Plan
+    - **MUST HAVE ENDING**
+    - Could have obstacles (objects you cant move through)
+  - [ ] Implement
+- [ ] Player health
+- [ ] Enemy AI
+- [ ] Improve start menu
+- [ ] Music
