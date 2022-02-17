@@ -117,23 +117,46 @@ public class Model {
     private void playerWallCollision(){
 
         // North face of wall
-        //Player is touching the Y coords of wall and within X confines of wall
-        //System.out.println("IN WALL FUNCTION");
+        // Player is touching the Y coords of wall and within X confines of wall
+        // System.out.println("IN WALL FUNCTION");
         for(GameObject wall : EnemiesList){
-//            if(wall.getCentre().getY() == (Player.getCentre().getY() + Player.getHeight())
-//               && (wall.getCentre().getX() <=  Player.getCentre().getX())
-//               && (wall.getCentre().getX() + wall.getWidth()) >= (Player.getCentre().getX() + Player.getWidth())){
-//                System.out.println("COLLIDING WITH WALL");
-//                Player.getCentre().ApplyVector(new Vector3f(0, Player.getSpeed(), 0));
-//            }
+            if((wall.getCentre().getY() + wall.getHeight() + 12 <= (Player.getCentre().getY() + Player.getHeight()))
+                    && !(Player.getCentre().getY() > wall.getCentre().getY() + wall.getHeight())
+                    && (wall.getCentre().getX() <=  Player.getCentre().getX())
+                    && (wall.getCentre().getX() + wall.getWidth()) >= (Player.getCentre().getX() + Player.getWidth())){
 
-            //TODO: Ask someone smarter about issue
-            if((wall.getCentre().getX() < Player.getCentre().getX() || wall.getCentre().getX() < Player.getCentre().getX() + Player.getWidth())
-                    && (wall.getCentre().getX() + wall.getWidth() > Player.getCentre().getX() || wall.getCentre().getX() + wall.getWidth() > Player.getCentre().getX() + Player.getWidth())
-                    && (wall.getCentre().getY() < Player.getCentre().getY() || wall.getCentre().getY() < Player.getCentre().getY() + Player.getHeight())
-                    && (wall.getCentre().getY() + wall.getHeight()) > Player.getCentre().getY() + Player.getHeight()) {
-                System.out.println("COLLIDING WITH WALL");
+                //System.out.println("COLLIDING WITH WALL");
                 Player.getCentre().ApplyVector(new Vector3f(0, Player.getSpeed(), 0));
+            }
+
+            // South face of wall
+            if((wall.getCentre().getY() + (wall.getHeight() + 12) >= (Player.getCentre().getY()))
+                    && !(Player.getCentre().getY() < wall.getCentre().getY())
+                    && (wall.getCentre().getX() <=  Player.getCentre().getX())
+                    && (wall.getCentre().getX() + wall.getWidth()) >= (Player.getCentre().getX() + Player.getWidth())){
+
+                Player.getCentre().ApplyVector(new Vector3f(0, (Player.getSpeed() * -1), 0));
+                System.out.println("COLLIDING WITH SOUTH WALL");
+            }
+
+            // West face of wall
+            //TODO: Fix issue where he collides with west wall and east wall at the same time
+            if((wall.getCentre().getX() <= Player.getCentre().getX() + Player.getWidth() - 13)
+                    && !(wall.getCentre().getX() + wall.getWidth() < Player.getCentre().getX())
+                    && (wall.getCentre().getY() <= Player.getCentre().getY())
+                    && (wall.getCentre().getY() + wall.getHeight() >= Player.getCentre().getY())){
+                System.out.println("Colliding with west wall");
+                Player.getCentre().ApplyVector(new Vector3f((Player.getSpeed() * -1), 0, 0));
+            }
+
+            // East face of wall
+            if((wall.getCentre().getX() + wall.getWidth() >= Player.getCentre().getX() + 13)
+                    && !(wall.getCentre().getX() > Player.getCentre().getX() + Player.getWidth())
+                    && (wall.getCentre().getY() <= Player.getCentre().getY())
+                    && (wall.getCentre().getY() + wall.getHeight() >= Player.getCentre().getY())){
+                System.out.println("Colliding with EAST wall");
+                Player.getCentre().ApplyVector(new Vector3f(Player.getSpeed(), 0, 0));
+
             }
         }
     }
