@@ -64,7 +64,7 @@ public class MainWindow {
 
 
         JButton startMenuButton = new JButton("Start Game");  // start button
-        JLabel titleText = new JLabel("The Hunt For Floppa");
+        //JLabel titleText = new JLabel("The Hunt For Floppa");
 
         startMenuButton.addActionListener(new ActionListener() {
             @Override
@@ -78,12 +78,12 @@ public class MainWindow {
             }
         });
         startMenuButton.setBounds(540, 500, 200, 40);
-        titleText.setBounds(500, 100, 400, 80);
-        titleText.setFont(new Font("Verdana", Font.PLAIN, 30));
-        frame.add(titleText);
+        //titleText.setBounds(500, 100, 400, 80);
+        //titleText.setFont(new Font("Verdana", Font.PLAIN, 30));
+        //frame.add(titleText);
 
         //loading background image
-        File BackroundToLoad = new File("res/FLPADVBackground.png");  //should work okay on OSX and Linux but check if you have issues depending your eclipse install or if your running this without an IDE
+        File BackroundToLoad = new File("res/floppa_background.png");  //should work okay on OSX and Linux but check if you have issues depending your eclipse install or if your running this without an IDE
         try {
 
             BufferedImage myPicture = ImageIO.read(BackroundToLoad);
