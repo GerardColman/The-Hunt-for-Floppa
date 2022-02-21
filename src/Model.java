@@ -125,7 +125,6 @@ public class Model {
                     && (wall.getCentre().getX() <=  Player.getCentre().getX())
                     && (wall.getCentre().getX() + wall.getWidth()) >= (Player.getCentre().getX() + Player.getWidth())){
 
-                //System.out.println("COLLIDING WITH WALL");
                 Player.getCentre().ApplyVector(new Vector3f(0, Player.getSpeed(), 0));
             }
 
@@ -136,12 +135,11 @@ public class Model {
                     && (wall.getCentre().getX() + wall.getWidth()) >= (Player.getCentre().getX() + Player.getWidth())){
 
                 Player.getCentre().ApplyVector(new Vector3f(0, (Player.getSpeed() * -1), 0));
-                System.out.println("COLLIDING WITH SOUTH WALL");
             }
 
             // West face of wall
             //TODO: Fix issue where he collides with west wall and east wall at the same time
-            if((wall.getCentre().getX() <= Player.getCentre().getX() + Player.getWidth() - 13)
+            if((wall.getCentre().getX() <= Player.getCentre().getX() + Player.getWidth() - 15)
                     && !(wall.getCentre().getX() + wall.getWidth() < Player.getCentre().getX())
                     && (wall.getCentre().getY() <= Player.getCentre().getY())
                     && (wall.getCentre().getY() + wall.getHeight() >= Player.getCentre().getY())){
@@ -150,8 +148,8 @@ public class Model {
             }
 
             // East face of wall
-            if((wall.getCentre().getX() + wall.getWidth() >= Player.getCentre().getX() + 13)
-                    && !(wall.getCentre().getX() > Player.getCentre().getX() + Player.getWidth())
+            if((wall.getCentre().getX() + wall.getWidth() >= Player.getCentre().getX() - 10)
+                    && !(wall.getCentre().getX() > Player.getCentre().getX())
                     && (wall.getCentre().getY() <= Player.getCentre().getY())
                     && (wall.getCentre().getY() + wall.getHeight() >= Player.getCentre().getY())){
                 System.out.println("Colliding with EAST wall");
