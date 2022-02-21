@@ -214,9 +214,25 @@ public class Viewer extends JPanel {
             drawEnemies((int) temp.getCentre().getX(), (int) temp.getCentre().getY(), (int) temp.getWidth(), (int) temp.getHeight(), temp.getTexture(), g);
 
         });
+
+        //Draw walls
+        gameworld.getWalls().forEach((temp) ->
+        {
+            drawWalls((int) temp.getCentre().getX(), (int) temp.getCentre().getY(), (int) temp.getWidth(), (int) temp.getHeight(), temp.getTexture(), g);
+
+        });
     }
 
     private void drawEnemies(int x, int y, int width, int height, String texture, Graphics g) {
+        //The spirte is 32x32 pixel wide and 4 of them are placed together so we need to grab a different one each time
+        //remember your training :-) computer science everything starts at 0 so 32 pixels gets us to 31
+        int currentPositionInAnimation = ((int) (CurrentAnimationTime % 4) * 32); //slows down animation so every 10 frames we get another frame so every 100ms
+        currentPositionInAnimation = 0;
+        g.drawImage(enemyTexture, x, y, x + width, y + height, currentPositionInAnimation, 0, currentPositionInAnimation + 31, 32, null);
+
+    }
+
+    private void drawWalls(int x, int y, int width, int height, String texture, Graphics g) {
         //The spirte is 32x32 pixel wide and 4 of them are placed together so we need to grab a different one each time
         //remember your training :-) computer science everything starts at 0 so 32 pixels gets us to 31
         int currentPositionInAnimation = ((int) (CurrentAnimationTime % 4) * 32); //slows down animation so every 10 frames we get another frame so every 100ms

@@ -48,15 +48,30 @@ public class Model {
 
         //setup game world
         //Player
-        Player = new GameObject("res/Lightning.png", 32, 64, new Point3f(500, 500, 0));
+
 
         //Enemies  starting with four
-        EnemiesList.add(new GameObject("res/test_wall.png", 128, 32, new Point3f(500, 300, 0)));
+
 //        EnemiesList.add(new GameObject("res/UFO.png", 50, 50, new Point3f(((float) Math.random() * 50 + 500), 0, 0)));
 //        EnemiesList.add(new GameObject("res/floppa.png", 50, 50, new Point3f(((float) Math.random() * 100 + 500), 0, 0)));
 //        EnemiesList.add(new GameObject("res/floppa.png", 50, 50, new Point3f(((float) Math.random() * 100 + 400), 0, 0)));
 
 
+        loadLevel(1);
+
+    }
+
+    private void loadLevel(int level_number){
+        switch (level_number){
+            case 1:
+                loadLevelOne();
+                break;
+        }
+    }
+
+    private void loadLevelOne(){
+        Player = new GameObject("res/Lightning.png", 32, 64, new Point3f(500, 500, 0));
+        WallList.add(new GameObject("res/test_wall.png", 128, 32, new Point3f(500, 300, 0)));
     }
 
     // This is the heart of the game , where the model takes in all the inputs ,decides the outcomes and then changes the model accordingly.
@@ -119,7 +134,7 @@ public class Model {
         // North face of wall
         // Player is touching the Y coords of wall and within X confines of wall
         // System.out.println("IN WALL FUNCTION");
-        for(GameObject wall : EnemiesList){
+        for(GameObject wall : WallList){
             if((wall.getCentre().getY() + wall.getHeight() + 12 <= (Player.getCentre().getY() + Player.getHeight()))
                     && !(Player.getCentre().getY() > wall.getCentre().getY() + wall.getHeight())
                     && (wall.getCentre().getX() <=  Player.getCentre().getX())
@@ -292,6 +307,8 @@ public class Model {
     public CopyOnWriteArrayList<GameObject> getBullets() {
         return BulletList;
     }
+
+    public CopyOnWriteArrayList<GameObject> getWalls() { return WallList; }
 
     public int getScore() {
         return Score;

@@ -1,4 +1,4 @@
-- [ ] Collision
+- [X] Collision
 - [ ] Walls
   - Add Texture to walls
 - [ ] Paint Levels
@@ -11,6 +11,6 @@
   - [ ] Implement
 - [ ] Player health
 - [ ] Enemy AI
-- [ ] Improve start menu
+- [X] Improve start menu
 - [ ] Music
-- [ ] Change game name to "The Hunt For Floppa"
+- [X] Change game name to "The Hunt For Floppa"
