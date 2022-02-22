@@ -62,6 +62,15 @@ public class Viewer extends JPanel {
     BufferedImage playerAttackBackTexture;
     BufferedImage playerAttackRightTexture;
     BufferedImage playerAttackLeftTexture;
+    BufferedImage wallTexture;
+
+    public BufferedImage getWallTexture() {
+        return wallTexture;
+    }
+
+    public void setWallTexture(BufferedImage wallTexture) {
+        this.wallTexture = wallTexture;
+    }
 
     public BufferedImage getPlayerAttackRightTexture() {
         return playerAttackRightTexture;
@@ -131,6 +140,7 @@ public class Viewer extends JPanel {
 
         // Loading level assets
         File backgroundFile = new File("res/spacebackground.png");
+        File wallFile = new File("res/Wall.png");
 
         //Loading player assets
         File playerFileFront = new File("res/character_front.png");
@@ -155,6 +165,7 @@ public class Viewer extends JPanel {
             playerAttackBackTexture = ImageIO.read(playerAttackBack);
             playerAttackRightTexture = ImageIO.read(playerAttackRight);
             playerAttackLeftTexture = ImageIO.read(playerAttackLeft);
+            wallTexture = ImageIO.read(wallFile);
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -237,7 +248,7 @@ public class Viewer extends JPanel {
         //remember your training :-) computer science everything starts at 0 so 32 pixels gets us to 31
         int currentPositionInAnimation = ((int) (CurrentAnimationTime % 4) * 32); //slows down animation so every 10 frames we get another frame so every 100ms
         currentPositionInAnimation = 0;
-        g.drawImage(enemyTexture, x, y, x + width, y + height, currentPositionInAnimation, 0, currentPositionInAnimation + 31, 32, null);
+        g.drawImage(wallTexture, x, y, x + width, y + height, currentPositionInAnimation, 0, currentPositionInAnimation + 31, 32, null);
 
     }
 

@@ -74,14 +74,14 @@ public class Model {
 
         // Rendering top and bottom border walls
         for(int i = 0;i<10;i++){
-            WallList.add(new GameObject("res/test_wall.png", 128, 32, new Point3f(i*128, 0, 0)));
-            WallList.add(new GameObject("res/test_wall.png", 128, 32, new Point3f(i*128, 650, 0)));
+            WallList.add(new GameObject("res/Wall.png", 128, 32, new Point3f(i*128, 0, 0)));
+            WallList.add(new GameObject("res/Wall.png", 128, 32, new Point3f(i*128, 650, 0)));
         }
 
         // Rendering left and right border walls
         for(int i = 0;i<6;i++){
-            WallList.add(new GameObject("res/test_wall.png", 32, 128, new Point3f(0, i*128, 0)));
-            WallList.add(new GameObject("res/test_wall.png", 32, 128, new Point3f(1232, i*128, 0)));
+            WallList.add(new GameObject("res/Wall.png", 32, 128, new Point3f(0, i*128, 0)));
+            WallList.add(new GameObject("res/Wall.png", 32, 128, new Point3f(1232, i*128, 0)));
         }
     }
 
