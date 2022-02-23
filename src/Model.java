@@ -215,6 +215,25 @@ public class Model {
     }
 
     private void enemyLogic() {
+        moveEnemies();
+        spawnEnemies();
+    }
+    private void moveEnemies(){
+        for(GameObject enemy : EnemiesList){
+            switch (enemy.player_direction){
+                case "UP":
+                    enemy.getCentre().ApplyVector(new Vector3f(0, 2, 0));
+                case "DOWN":
+                    enemy.getCentre().ApplyVector(new Vector3f(0, -2, 0));
+                case "RIGHT":
+                    enemy.getCentre().ApplyVector(new Vector3f(2, 0, 0));
+                case "LEFT":
+                    enemy.getCentre().ApplyVector(new Vector3f(-2, 0, 0));
+            }
+        }
+    }
+
+    private void spawnEnemies(){
         Random random = new Random();
 
         if (EnemiesList.size() <= 4) {
