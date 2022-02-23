@@ -1,16 +1,8 @@
 - [X] Collision
-- [ ] Walls
-  - Add Texture to walls
-- [ ] Paint Levels
-  - [ ] Plan
-    - **MUST HAVE ENDING**
-    - Tiles
-      - Spikes/Pits
-      - Obstacles
-      - Door
-  - [ ] Implement
-- [ ] Player health
+- [x] Walls
 - [ ] Enemy AI
+- [ ] Add more spawn Points
+- [ ] Player health
 - [X] Improve start menu
 - [ ] Music
 - [X] Change game name to "The Hunt For Floppa"

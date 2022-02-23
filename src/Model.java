@@ -96,30 +96,23 @@ public class Model {
         }
 
         // Adding Spawn Points
-
         // Top side
-        SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(50, 50, 0)));
         SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(350, 50, 0)));
         SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(600, 50, 0)));
         SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(850, 50, 0)));
-        SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(1150, 50, 0)));
 
-        // Left Side
+        // Right Side
         SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(1150, 200, 0)));
         SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(1150, 400, 0)));
-        SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(1150, 600, 0)));
 
         // Bottom Side
-        SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(50, 600, 0)));
         SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(350, 600, 0)));
         SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(600, 600, 0)));
         SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(850, 600, 0)));
-        SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(1150, 600, 0)));
 
-        // Right Side
+        // Left Side
         SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(50, 200, 0)));
         SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(50, 400, 0)));
-        SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(50, 600, 0)));
 
     }
 
@@ -228,6 +221,15 @@ public class Model {
             while (EnemiesList.size() < 6) {
                 int rand = random.nextInt(SpawnPointList.size());
                 GameObject temp_enemy = new GameObject("res/UFO.png", 32, 32, SpawnPointList.get(rand).getCentre());
+                if(temp_enemy.getCentre().getY() == 50){
+                    temp_enemy.player_direction = "DOWN";
+                }else if(temp_enemy.getCentre().getY() == 600){
+                    temp_enemy.player_direction = "UP";
+                }else if(temp_enemy.getCentre().getX() == 50){
+                    temp_enemy.player_direction = "RIGHT";
+                }else if(temp_enemy.getCentre().getX() == 1150){
+                    temp_enemy.player_direction = "LEFT";
+                }
                 EnemiesList.add(temp_enemy);
             }
         }
