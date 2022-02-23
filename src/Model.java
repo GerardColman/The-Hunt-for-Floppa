@@ -38,6 +38,15 @@ public class Model {
     private CopyOnWriteArrayList<GameObject> EnemiesList = new CopyOnWriteArrayList<GameObject>();
     private CopyOnWriteArrayList<GameObject> BulletList = new CopyOnWriteArrayList<GameObject>();
     private CopyOnWriteArrayList<GameObject> WallList = new CopyOnWriteArrayList<GameObject>();
+
+    public CopyOnWriteArrayList<GameObject> getSpawnPointList() {
+        return SpawnPointList;
+    }
+
+    public void setSpawnPointList(CopyOnWriteArrayList<GameObject> spawnPointList) {
+        SpawnPointList = spawnPointList;
+    }
+
     private CopyOnWriteArrayList<GameObject> SpawnPointList = new CopyOnWriteArrayList<GameObject>();
     private int Score = 0;
     public boolean gameOver = false;
@@ -86,13 +95,16 @@ public class Model {
         }
 
         // Adding Spawn Points
-        SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(150, 150, 0)));
-        SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(600, 150, 0)));
-        SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(1150, 150, 0)));
+        SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(50, 50, 0)));
+        SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(600, 50, 0)));
+        SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(1150, 50, 0)));
         SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(1150, 400, 0)));
         SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(1150, 600, 0)));
         SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(1150, 800, 0)));
-        SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(1150, 150, 0)));
+        // TODO: add to bottom
+        SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(1150, 1150, 0)));
+        SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(600, 1150, 0)));
+        SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(50, 1150, 0)));
 
 
     }

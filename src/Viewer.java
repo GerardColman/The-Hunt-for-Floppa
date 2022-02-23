@@ -136,7 +136,7 @@ public class Viewer extends JPanel {
     private void loadTextures(){
 
         // Loading enemy assets
-        File enemyFile = new File("res/test_wall.png");
+        File enemyFile = new File("res/UFO.png");
 
         // Loading level assets
         File backgroundFile = new File("res/spacebackground.png");
@@ -220,7 +220,7 @@ public class Viewer extends JPanel {
 //        });
 
         //Draw Enemies
-        gameworld.getEnemies().forEach((temp) ->
+        gameworld.getSpawnPointList().forEach((temp) ->
         {
             drawEnemies((int) temp.getCentre().getX(), (int) temp.getCentre().getY(), (int) temp.getWidth(), (int) temp.getHeight(), temp.getTexture(), g);
 
