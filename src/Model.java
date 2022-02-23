@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Vector;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.Random;
 
 import util.GameObject;
 import util.Point3f;
@@ -95,17 +96,30 @@ public class Model {
         }
 
         // Adding Spawn Points
+
+        // Top side
         SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(50, 50, 0)));
+        SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(350, 50, 0)));
         SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(600, 50, 0)));
+        SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(850, 50, 0)));
         SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(1150, 50, 0)));
+
+        // Left Side
+        SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(1150, 200, 0)));
         SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(1150, 400, 0)));
         SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(1150, 600, 0)));
-        SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(1150, 800, 0)));
-        // TODO: add to bottom
-        SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(1150, 1150, 0)));
-        SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(600, 1150, 0)));
-        SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(50, 1150, 0)));
 
+        // Bottom Side
+        SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(50, 600, 0)));
+        SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(350, 600, 0)));
+        SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(600, 600, 0)));
+        SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(850, 600, 0)));
+        SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(1150, 600, 0)));
+
+        // Right Side
+        SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(50, 200, 0)));
+        SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(50, 400, 0)));
+        SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(50, 600, 0)));
 
     }
 
@@ -127,7 +141,6 @@ public class Model {
     }
 
     private void gameLogic() {
-
 
         // this is a way to increment across the array list data structure
         collision();
@@ -188,7 +201,6 @@ public class Model {
             }
 
             // West face of wall
-            //TODO: Fix issue where he collides with west wall and east wall at the same time
             if((wall.getCentre().getX() <= Player.getCentre().getX() + Player.getWidth() - 15)
                     && !(wall.getCentre().getX() + wall.getWidth() < Player.getCentre().getX())
                     && (wall.getCentre().getY() <= Player.getCentre().getY())
@@ -210,16 +222,15 @@ public class Model {
     }
 
     private void enemyLogic() {
-        // TODO Auto-generated method stub
-        for (GameObject temp : EnemiesList) {
+        Random random = new Random();
 
+        if (EnemiesList.size() <= 4) {
+            while (EnemiesList.size() < 6) {
+                int rand = random.nextInt(SpawnPointList.size());
+                GameObject temp_enemy = new GameObject("res/UFO.png", 32, 32, SpawnPointList.get(rand).getCentre());
+                EnemiesList.add(temp_enemy);
+            }
         }
-
-//        if (EnemiesList.size() < 2) {
-//            while (EnemiesList.size() < 6) {
-//                EnemiesList.add(new GameObject("res/UFO.png", 50, 50, new Point3f(((float) Math.random() * 1000), 0, 0)));
-//            }
-//        }
     }
 
     private void bulletLogic() {
