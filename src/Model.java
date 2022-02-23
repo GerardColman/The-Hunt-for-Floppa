@@ -38,6 +38,7 @@ public class Model {
     private CopyOnWriteArrayList<GameObject> EnemiesList = new CopyOnWriteArrayList<GameObject>();
     private CopyOnWriteArrayList<GameObject> BulletList = new CopyOnWriteArrayList<GameObject>();
     private CopyOnWriteArrayList<GameObject> WallList = new CopyOnWriteArrayList<GameObject>();
+    private CopyOnWriteArrayList<GameObject> SpawnPointList = new CopyOnWriteArrayList<GameObject>();
     private int Score = 0;
     public boolean gameOver = false;
 
@@ -83,6 +84,17 @@ public class Model {
             WallList.add(new GameObject("res/Wall.png", 32, 128, new Point3f(0, i*128, 0)));
             WallList.add(new GameObject("res/Wall.png", 32, 128, new Point3f(1232, i*128, 0)));
         }
+
+        // Adding Spawn Points
+        SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(150, 150, 0)));
+        SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(600, 150, 0)));
+        SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(1150, 150, 0)));
+        SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(1150, 400, 0)));
+        SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(1150, 600, 0)));
+        SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(1150, 800, 0)));
+        SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(1150, 150, 0)));
+
+
     }
 
     // This is the heart of the game , where the model takes in all the inputs ,decides the outcomes and then changes the model accordingly.
