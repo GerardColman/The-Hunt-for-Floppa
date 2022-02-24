@@ -218,17 +218,20 @@ public class Model {
         moveEnemies();
         spawnEnemies();
     }
+
+    //TODO: find out why only enemies facing down and right are moving.
     private void moveEnemies(){
         for(GameObject enemy : EnemiesList){
             switch (enemy.player_direction){
                 case "UP":
-                    enemy.getCentre().ApplyVector(new Vector3f(0, 2, 0));
+                    enemy.getCentre().ApplyVector(new Vector3f(0, 10, 0));
                 case "DOWN":
-                    enemy.getCentre().ApplyVector(new Vector3f(0, -2, 0));
+                    enemy.getCentre().ApplyVector(new Vector3f(0, -10, 0));
                 case "RIGHT":
-                    enemy.getCentre().ApplyVector(new Vector3f(2, 0, 0));
+                    System.out.println(enemy.getCentre().getX());
+                    enemy.getCentre().ApplyVector(new Vector3f(10, 0, 0));
                 case "LEFT":
-                    enemy.getCentre().ApplyVector(new Vector3f(-2, 0, 0));
+                    enemy.getCentre().ApplyVector(new Vector3f(-10, 0, 0));
             }
         }
     }
@@ -249,6 +252,7 @@ public class Model {
                 }else if(temp_enemy.getCentre().getX() == 1150){
                     temp_enemy.player_direction = "LEFT";
                 }
+                System.out.println(temp_enemy.getPlayer_direction());
                 EnemiesList.add(temp_enemy);
             }
         }

@@ -220,7 +220,7 @@ public class Viewer extends JPanel {
 //        });
 
         //Draw Enemies
-        gameworld.getSpawnPointList().forEach((temp) ->
+        gameworld.getEnemies().forEach((temp) ->
         {
             drawEnemies((int) temp.getCentre().getX(), (int) temp.getCentre().getY(), (int) temp.getWidth(), (int) temp.getHeight(), temp.getTexture(), g);
 
