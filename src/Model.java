@@ -144,7 +144,7 @@ public class Model {
     private void collision(){
         playerEnemyCollision();
         playerWallCollision();
-        enemyWallCollision();
+        //enemyWallCollision();
     }
 
     private void enemyWallCollision(){
@@ -219,12 +219,8 @@ public class Model {
     }
 
     private void despawnEnemies(){
-        for(GameObject enemy : EnemiesList){
-            if((enemy.getCentre().getX() > 900 || enemy.getCentre().getX() < -900)
-                || (enemy.getCentre().getY() > 900 || enemy.getCentre().getY() < -900)){
-                EnemiesList.remove(enemy);
-            }
-        }
+        EnemiesList.removeIf(enemy -> (enemy.getCentre().getX() > 1200 || enemy.getCentre().getX() < -1200)
+                || (enemy.getCentre().getY() > 1200 || enemy.getCentre().getY() < -1200));
     }
 
     private void moveEnemies(){
