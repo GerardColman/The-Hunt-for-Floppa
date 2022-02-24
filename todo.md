@@ -1,6 +1,9 @@
 - [X] Collision
 - [x] Walls
 - [x] Enemy AI
+- [ ] Enemy Spawning bugs
+  - [ ] Not removing enemies from enemy list
+- [ ] Add floppa
 - [ ] Add more spawn Points
 - [ ] Player health
 - [X] Improve start menu
