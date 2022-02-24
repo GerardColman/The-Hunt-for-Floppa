@@ -132,7 +132,6 @@ public class Model {
         // interactions between objects
         gameLogic();
 
-
     }
 
     private void gameLogic() {
@@ -219,8 +218,15 @@ public class Model {
     }
 
     private void despawnEnemies(){
-        EnemiesList.removeIf(enemy -> (enemy.getCentre().getX() > 1200 || enemy.getCentre().getX() < -1200)
-                || (enemy.getCentre().getY() > 1200 || enemy.getCentre().getY() < -1200));
+        for(GameObject enemy : EnemiesList){
+            if(enemy.getCentre().getX() <= 0.0f || enemy.getCentre().getX() >= 1200.0f){
+                EnemiesList.remove(enemy);
+            }
+
+            if(enemy.getCentre().getY() <= 0.0f || enemy.getCentre().getY() >= 800.0f){
+                EnemiesList.remove(enemy);
+            }
+        }
     }
 
     private void moveEnemies(){
@@ -247,22 +253,23 @@ public class Model {
     private void spawnEnemies(){
         System.out.println(EnemiesList.size());
         Random random = new Random();
-
+        if(EnemiesList.size() < 6) {
             while (EnemiesList.size() < 6) {
                 int rand = random.nextInt(SpawnPointList.size());
                 GameObject temp_enemy = new GameObject("res/UFO.png", 32, 32, SpawnPointList.get(rand).getCentre());
-                if(temp_enemy.getCentre().getY() == 50){
+                if (temp_enemy.getCentre().getY() == 50) {
                     temp_enemy.player_direction = "DOWN";
-                }else if(temp_enemy.getCentre().getY() == 600){
+                } else if (temp_enemy.getCentre().getY() == 600) {
                     temp_enemy.player_direction = "UP";
-                }else if(temp_enemy.getCentre().getX() == 50){
+                } else if (temp_enemy.getCentre().getX() == 50) {
                     temp_enemy.player_direction = "RIGHT";
-                }else if(temp_enemy.getCentre().getX() == 1150){
+                } else if (temp_enemy.getCentre().getX() == 1150) {
                     temp_enemy.player_direction = "LEFT";
                 }
 
                 EnemiesList.add(temp_enemy);
             }
+        }
     }
 
     private void bulletLogic() {
