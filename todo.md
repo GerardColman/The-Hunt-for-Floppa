@@ -1,6 +1,6 @@
 - [X] Collision
 - [x] Walls
-- [ ] Enemy AI
+- [x] Enemy AI
 - [ ] Add more spawn Points
 - [ ] Player health
 - [X] Improve start menu

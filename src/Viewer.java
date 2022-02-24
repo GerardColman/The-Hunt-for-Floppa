@@ -253,7 +253,7 @@ public class Viewer extends JPanel {
     }
 
     private void drawBackground(Graphics g) {
-        g.drawImage(backgroundTexture, 0, 0, 1000, 1000, 0, 0, 1000, 1000, null);
+        g.drawImage(backgroundTexture, 0, 0, 1280, 720, 0, 0, 1000, 1000, null);
     }
 
 //    private void drawBullet(int x, int y, int width, int height, String texture, Graphics g) {
@@ -322,7 +322,6 @@ public class Viewer extends JPanel {
             Graphics2D gfx = (Graphics2D) g;
             int currentPositionInAnimation = ((int) ((CurrentAnimationTime % 40) / 10)) * 16; //slows down animation so every 10 frames we get another frame so every 100ms
             BufferedImage playerTexture;
-            System.out.println("Player_direction = " + gameworld.getPlayer().getPlayer_direction());
 
             switch (gameworld.getPlayer().getPlayer_direction()) {
                 case "FRONT":

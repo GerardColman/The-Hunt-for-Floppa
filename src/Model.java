@@ -39,6 +39,7 @@ public class Model {
     private CopyOnWriteArrayList<GameObject> EnemiesList = new CopyOnWriteArrayList<GameObject>();
     private CopyOnWriteArrayList<GameObject> BulletList = new CopyOnWriteArrayList<GameObject>();
     private CopyOnWriteArrayList<GameObject> WallList = new CopyOnWriteArrayList<GameObject>();
+    int enemy_speed = 7;
 
     public CopyOnWriteArrayList<GameObject> getSpawnPointList() {
         return SpawnPointList;
@@ -81,7 +82,7 @@ public class Model {
     }
 
     private void loadLevelOne(){
-        Player = new GameObject("res/Lightning.png", 32, 64, new Point3f(500, 500, 0));
+        Player = new GameObject("res/Lightning.png", 32, 64, new Point3f(1000, 500, 0));
 
         // Rendering top and bottom border walls
         for(int i = 0;i<10;i++){
@@ -131,19 +132,32 @@ public class Model {
         // interactions between objects
         gameLogic();
 
+
     }
 
     private void gameLogic() {
 
-        // this is a way to increment across the array list data structure
         collision();
-
 
     }
 
     private void collision(){
-        //playerEnemyCollision();
+        playerEnemyCollision();
         playerWallCollision();
+        enemyWallCollision();
+    }
+
+    private void enemyWallCollision(){
+
+        for(GameObject enemy : EnemiesList){
+            for(GameObject wall : WallList){
+                if(Math.abs(wall.getCentre().getX() - enemy.getCentre().getX()) < wall.getWidth()
+                    && Math.abs(wall.getCentre().getX() - enemy.getCentre().getY()) < wall.getHeight()) {
+                    System.out.println("ENEMY REMOVED");
+                    EnemiesList.remove(enemy);
+                }
+            }
+        }
     }
 
     private void playerEnemyCollision(){
@@ -151,19 +165,7 @@ public class Model {
             if (Math.abs(temp.getCentre().getX() - Player.getCentre().getX()) < temp.getWidth()
                     && Math.abs(temp.getCentre().getY() - Player.getCentre().getY()) < temp.getHeight()) {
 
-//                switch (Player.getPlayer_direction()){
-//                    case "FRONT":
-//                        Player.getCentre().ApplyVector(new Vector3f(0, Player.getSpeed(), 0));
-//                        break;
-//                    case "BACK":
-//                        Player.getCentre().ApplyVector(new Vector3f(0, (Player.getSpeed() * -1), 0));
-//                        break;
-//                    case "LEFT":
-//                        Player.getCentre().ApplyVector(new Vector3f(Player.getSpeed(), 0, 0));
-//                        break;
-//                    case "RIGHT":
-//                        Player.getCentre().ApplyVector(new Vector3f((Player.getSpeed() * -1), 0, 0));
-//                }
+
 //                 EnemiesList.remove(temp);
 //                 Score++;
             }
@@ -173,8 +175,6 @@ public class Model {
     private void playerWallCollision(){
 
         // North face of wall
-        // Player is touching the Y coords of wall and within X confines of wall
-        // System.out.println("IN WALL FUNCTION");
         for(GameObject wall : WallList){
             if((wall.getCentre().getY() + wall.getHeight() + 12 <= (Player.getCentre().getY() + Player.getHeight()))
                     && !(Player.getCentre().getY() > wall.getCentre().getY() + wall.getHeight())
@@ -198,7 +198,6 @@ public class Model {
                     && !(wall.getCentre().getX() + wall.getWidth() < Player.getCentre().getX())
                     && (wall.getCentre().getY() <= Player.getCentre().getY())
                     && (wall.getCentre().getY() + wall.getHeight() >= Player.getCentre().getY())){
-                System.out.println("Colliding with west wall");
                 Player.getCentre().ApplyVector(new Vector3f((Player.getSpeed() * -1), 0, 0));
             }
 
@@ -207,7 +206,6 @@ public class Model {
                     && !(wall.getCentre().getX() > Player.getCentre().getX())
                     && (wall.getCentre().getY() <= Player.getCentre().getY())
                     && (wall.getCentre().getY() + wall.getHeight() >= Player.getCentre().getY())){
-                System.out.println("Colliding with EAST wall");
                 Player.getCentre().ApplyVector(new Vector3f(Player.getSpeed(), 0, 0));
 
             }
@@ -215,31 +213,45 @@ public class Model {
     }
 
     private void enemyLogic() {
-        moveEnemies();
+        despawnEnemies();
         spawnEnemies();
+        moveEnemies();
     }
 
-    //TODO: find out why only enemies facing down and right are moving.
+    private void despawnEnemies(){
+        for(GameObject enemy : EnemiesList){
+            if((enemy.getCentre().getX() > 900 || enemy.getCentre().getX() < -900)
+                || (enemy.getCentre().getY() > 900 || enemy.getCentre().getY() < -900)){
+                EnemiesList.remove(enemy);
+            }
+        }
+    }
+
     private void moveEnemies(){
         for(GameObject enemy : EnemiesList){
             switch (enemy.player_direction){
                 case "UP":
-                    enemy.getCentre().ApplyVector(new Vector3f(0, 10, 0));
+                    enemy.getCentre().ApplyVector(new Vector3f(0, enemy_speed, 0));
+                    break;
                 case "DOWN":
-                    enemy.getCentre().ApplyVector(new Vector3f(0, -10, 0));
+                    enemy.getCentre().ApplyVector(new Vector3f(0, -enemy_speed, 0));
+                    break;
                 case "RIGHT":
-                    System.out.println(enemy.getCentre().getX());
-                    enemy.getCentre().ApplyVector(new Vector3f(10, 0, 0));
+                    enemy.getCentre().ApplyVector(new Vector3f(enemy_speed, 0, 0));
+                    break;
                 case "LEFT":
-                    enemy.getCentre().ApplyVector(new Vector3f(-10, 0, 0));
+                    enemy.getCentre().ApplyVector(new Vector3f(-enemy_speed, 0, 0));
+                    break;
+                default:
+                    break;
             }
         }
     }
 
     private void spawnEnemies(){
+        System.out.println(EnemiesList.size());
         Random random = new Random();
 
-        if (EnemiesList.size() <= 4) {
             while (EnemiesList.size() < 6) {
                 int rand = random.nextInt(SpawnPointList.size());
                 GameObject temp_enemy = new GameObject("res/UFO.png", 32, 32, SpawnPointList.get(rand).getCentre());
@@ -252,10 +264,9 @@ public class Model {
                 }else if(temp_enemy.getCentre().getX() == 1150){
                     temp_enemy.player_direction = "LEFT";
                 }
-                System.out.println(temp_enemy.getPlayer_direction());
+
                 EnemiesList.add(temp_enemy);
             }
-        }
     }
 
     private void bulletLogic() {
@@ -358,14 +369,13 @@ public class Model {
             default:
                 vector = new Vector3f(0,0,0);
         }
-        GameObject swordHitBox = new GameObject(Player.getCentre().PlusVector(vector), 32, 64);
+        GameObject swordHitBox = new GameObject(Player.getCentre().PlusVector(vector), 64, 64);
         for(GameObject enemy : EnemiesList){
             if(Math.abs(enemy.getCentre().getX() - swordHitBox.getCentre().getX()) < enemy.getWidth() && Math.abs(enemy.getCentre().getY() - swordHitBox.getCentre().getY()) < enemy.getHeight()){
                 EnemiesList.remove(enemy);
             }
         }
     }
-
 
     public GameObject getPlayer() {
         return Player;
