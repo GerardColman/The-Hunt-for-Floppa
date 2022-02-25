@@ -2,7 +2,9 @@
 - [x] Walls
 - [x] Enemy AI
 - [ ] Enemy Spawning bugs
-  - [ ] Not removing enemies from enemy list
+  - Replace spawnpoint gameobjects with point3f's
+  - Clean up code!!!!!!!
+  - Maybe rewrite spawning system
 - [ ] Add floppa
 - [ ] Add more spawn Points
 - [ ] Player health
