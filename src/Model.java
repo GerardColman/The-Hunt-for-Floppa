@@ -40,6 +40,7 @@ public class Model {
     private CopyOnWriteArrayList<GameObject> BulletList = new CopyOnWriteArrayList<GameObject>();
     private CopyOnWriteArrayList<GameObject> WallList = new CopyOnWriteArrayList<GameObject>();
     private CopyOnWriteArrayList<GameObject> SpawnPointList = new CopyOnWriteArrayList<GameObject>();
+    private CopyOnWriteArrayList<Point3f> SpawnPointListPoints = new CopyOnWriteArrayList<>();
     int enemy_speed = 7;
 
     public CopyOnWriteArrayList<GameObject> getSpawnPointList() {
@@ -103,19 +104,29 @@ public class Model {
         SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(350, 50, 0)));
         SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(600, 50, 0)));
         SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(850, 50, 0)));
+        SpawnPointListPoints.add(new Point3f(350, 50, 0));
+        SpawnPointListPoints.add(new Point3f(600, 50, 0));
+        SpawnPointListPoints.add(new Point3f(850, 50, 0));
 
         // Right Side
         SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(1150, 200, 0)));
         SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(1150, 400, 0)));
+        SpawnPointListPoints.add(new Point3f(1150, 200, 0));
+        SpawnPointListPoints.add(new Point3f(1150, 400, 0));
 
         // Bottom Side
         SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(350, 600, 0)));
         SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(600, 600, 0)));
         SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(850, 600, 0)));
+        SpawnPointListPoints.add(new Point3f(350, 600, 0));
+        SpawnPointListPoints.add(new Point3f(600, 600, 0));
+        SpawnPointListPoints.add(new Point3f(850, 600, 0));
 
         // Left Side
         SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(50, 200, 0)));
         SpawnPointList.add(new GameObject("res/UFO.png", 32, 32, new Point3f(50, 400, 0)));
+        SpawnPointListPoints.add(new Point3f(50, 200, 0));
+        SpawnPointListPoints.add(new Point3f(50, 400, 0));
 
         initEnemies();
 
@@ -137,7 +148,7 @@ public class Model {
 
 
 
-            GameObject temp_enemy = new GameObject("res/UFO.png", 32, 32, SpawnPointList.get(rand).getCentre());
+            GameObject temp_enemy = new GameObject("res/UFO.png", 32, 32, SpawnPointListPoints.get(rand));
             if (temp_enemy.getCentre().getY() == 50) {
                 temp_enemy.player_direction = "DOWN";
             } else if (temp_enemy.getCentre().getY() == 600) {
@@ -248,117 +259,55 @@ public class Model {
     }
 
     private void enemyLogic() {
-        Random random = new Random();
-        int rand;
-        ArrayList<Integer> previous_numbers = new ArrayList<>();
-
         for(GameObject enemy : EnemiesList){
+            moveEnemy(enemy);
+            boolean wasEnemyRemoved = despawnEnemy(enemy);
 
-            //Move Enemy
-            switch (enemy.player_direction){
-                case "UP":
-                    enemy.getCentre().ApplyVector(new Vector3f(0, enemy_speed, 0));
-                    break;
-                case "DOWN":
-                    enemy.getCentre().ApplyVector(new Vector3f(0, -enemy_speed, 0));
-                    break;
-                case "RIGHT":
-                    enemy.getCentre().ApplyVector(new Vector3f(enemy_speed, 0, 0));
-                    break;
-                case "LEFT":
-                    enemy.getCentre().ApplyVector(new Vector3f(-enemy_speed, 0, 0));
-                    break;
-                default:
-                    break;
-            }
-
-            // Despawn Enemy
-            if(enemy.getCentre().getX() <= -1.0f || enemy.getCentre().getX() >= 1280.0f || enemy.getCentre().getY() <= 0.0f || enemy.getCentre().getY() >= 800.0f){
-                EnemiesList.remove(enemy);
-                System.out.println("ENEMY REMOVED" + enemy.getCentre().getX() + ":" + enemy.getCentre().getY());
-
-
-                //Spawing new Enemy
-                rand=1;
-                boolean cont = true;
-                while (cont) {
-                    rand = random.nextInt(SpawnPointList.size());
-                    if (!previous_numbers.contains(rand)) {
-                        previous_numbers.add(rand);
-                        cont=false;
-                    }
-                }
-                //rand = random.nextInt(SpawnPointList.size());
-                System.out.println("Number of things in spawnlist : " + SpawnPointList.size() + ", Rand value : " + rand);
-
-                GameObject temp_enemy = new GameObject("res/UFO.png", 32, 32, SpawnPointList.get(rand).getCentre());
-                System.out.println("X value : " + temp_enemy.getCentre().getX() + " Y value : " + temp_enemy.getCentre().getY());
-                if ((int)temp_enemy.getCentre().getY() == 50) {
-                    System.out.println("DOWN");
-                    temp_enemy.player_direction = "DOWN";
-                } else if ((int)temp_enemy.getCentre().getY() == 600) {
-                    System.out.println("UP");
-                    temp_enemy.player_direction = "UP";
-                } else if ((int)temp_enemy.getCentre().getX() == 50) {
-                    System.out.println("RIGHT");
-                    temp_enemy.player_direction = "RIGHT";
-                } else if ((int)temp_enemy.getCentre().getX() == 1150) {
-                    System.out.println("LEFT");
-                    temp_enemy.player_direction = "LEFT";
-                }
-
-                EnemiesList.add(temp_enemy);
-            }
-
-
+            if(wasEnemyRemoved)
 
         }
     }
 
-    private void despawnEnemies(){
-        for(GameObject enemy : EnemiesList){
-            if(enemy.getCentre().getX() == 0.0f || enemy.getCentre().getX() == 1220.0f){
-                EnemiesList.remove(enemy);
-                System.out.println("ENEMY REMOVED");
-            }
 
-            if(enemy.getCentre().getY() == 25.0f || enemy.getCentre().getY() >= 620.0f){
-                EnemiesList.remove(enemy);
-                System.out.println("ENEMY REMOVED");
-            }
+    private boolean despawnEnemy(GameObject enemy){
+        boolean wasEnemyRemoved = false;
+
+        if(enemy.getCentre().getX() <= 25.0f || enemy.getCentre().getX() >= 1220.0f){
+            EnemiesList.remove(enemy);
+            wasEnemyRemoved = true;
+            System.out.println("ENEMY REMOVED");
+        }
+
+        if(enemy.getCentre().getY() <= 25.0f || enemy.getCentre().getY() >= 620.0f){
+            EnemiesList.remove(enemy);
+            wasEnemyRemoved = true;
+            System.out.println("ENEMY REMOVED");
+        }
+
+        return wasEnemyRemoved;
+    }
+
+    private void moveEnemy(GameObject enemy){
+        switch (enemy.player_direction){
+            case "UP":
+                enemy.getCentre().ApplyVector(new Vector3f(0, enemy_speed, 0));
+                break;
+            case "DOWN":
+                enemy.getCentre().ApplyVector(new Vector3f(0, -enemy_speed, 0));
+                break;
+            case "RIGHT":
+                enemy.getCentre().ApplyVector(new Vector3f(enemy_speed, 0, 0));
+                break;
+            case "LEFT":
+                enemy.getCentre().ApplyVector(new Vector3f(-enemy_speed, 0, 0));
+                break;
+            default:
+                break;
         }
     }
 
-    private void moveEnemies(){
-        System.out.println(EnemiesList.size());
-        for(GameObject enemy : EnemiesList){
-            switch (enemy.player_direction){
-                case "UP":
-                    enemy.getCentre().ApplyVector(new Vector3f(0, enemy_speed, 0));
-                    break;
-                case "DOWN":
-                    enemy.getCentre().ApplyVector(new Vector3f(0, -enemy_speed, 0));
-                    break;
-                case "RIGHT":
-                    enemy.getCentre().ApplyVector(new Vector3f(enemy_speed, 0, 0));
-                    break;
-                case "LEFT":
-                    enemy.getCentre().ApplyVector(new Vector3f(-enemy_speed, 0, 0));
-                    break;
-                default:
-                    break;
-            }
+    private void spawnEnemy(){
 
-            if(enemy.getCentre().getX() <= 25.0f || enemy.getCentre().getX() >= 1220.0f){
-                EnemiesList.remove(enemy);
-                System.out.println("ENEMY REMOVED");
-            }
-
-            if(enemy.getCentre().getY() <= 25.0f || enemy.getCentre().getY() >= 620.0f){
-                EnemiesList.remove(enemy);
-                System.out.println("ENEMY REMOVED");
-            }
-        }
     }
 
     private void spawnEnemies(){
