@@ -263,7 +263,9 @@ public class Model {
             moveEnemy(enemy);
             boolean wasEnemyRemoved = despawnEnemy(enemy);
 
-            if(wasEnemyRemoved)
+            if(wasEnemyRemoved){
+                spawnEnemy();
+            }
 
         }
     }
@@ -306,7 +308,19 @@ public class Model {
         }
     }
 
+    //TODO: finish this function
     private void spawnEnemy(){
+        Random random = new Random();
+        int rand;
+        ArrayList previous_numbers = new ArrayList();
+
+        while(true) {
+            rand = random.nextInt(SpawnPointListPoints.size());
+            if(!previous_numbers.contains(rand)){
+                previous_numbers.add(rand);
+                break;
+            }
+        }
 
     }
 
