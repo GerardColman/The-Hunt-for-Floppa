@@ -1,12 +1,13 @@
 - [X] Collision
 - [x] Walls
 - [x] Enemy AI
-- [ ] Enemy Spawning bugs
+- [x] Enemy Spawning bugs
   - Replace spawnpoint gameobjects with point3f's
   - Clean up code!!!!!!!
   - Maybe rewrite spawning system
 - [ ] Add floppa
-- [ ] Add more spawn Points
+- [ ] Add Timer
+  - Tie spawn rate to timer
 - [ ] Player health
 - [X] Improve start menu
 - [ ] Music

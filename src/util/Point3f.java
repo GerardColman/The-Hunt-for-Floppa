@@ -32,7 +32,7 @@ public class Point3f {
 	private float y;
 	private float z;
 	
-	private int boundary = 1280;
+	private int boundary = 2000;
 	
 	
 	// default constructor
@@ -99,7 +99,7 @@ public class Point3f {
 	}
 
 	private float CheckBoundary(float f) {
-		if (f<0) f=0.0f;
+//		if (f<0) f=0.0f;
 		if (f>boundary)f=(float) boundary;
 		return f;
 	}
