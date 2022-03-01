@@ -1,14 +1,12 @@
 - [X] Collision
 - [x] Walls
 - [x] Enemy AI
-- [x] Enemy Spawning bugs
-  - Replace spawnpoint gameobjects with point3f's
-  - Clean up code!!!!!!!
-  - Maybe rewrite spawning system
+- [x] Add Score calcuations
 - [ ] Add floppa
-- [ ] Add Timer
-  - Tie spawn rate to timer
+  - When score reaches limit player, spawn floppa, player can win by killing floppa
 - [ ] Player health
-- [X] Improve start menu
+- [ ] Game over screen on player death
+- [ ] Save score
+### Stretch
 - [ ] Music
 - [X] Change game name to "The Hunt For Floppa"

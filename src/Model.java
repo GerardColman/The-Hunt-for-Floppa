@@ -51,7 +51,8 @@ public class Model {
         SpawnPointList = spawnPointList;
     }
 
-    private int Score = 0;
+    int Score = 20;
+    private int frame_count;
 
     //TODO: Increase spawn rate as time goes on
     private int spawnRate = 100;
@@ -175,7 +176,22 @@ public class Model {
     private void gameLogic() {
 
         collision();
+        scoreIncrease();
 
+    }
+
+    //TODO: INTERVIEW HIGHLIGHT
+    private void scoreIncrease(){
+        if(frame_count == 5){
+            Score++;
+            frame_count = 0;
+        }else{
+            frame_count++;
+        }
+
+        if(Score % 10 == 0){
+            spawnRate += 5;
+        }
     }
 
     private void collision(){
@@ -300,9 +316,6 @@ public class Model {
         }
     }
 
-    //TODO: See below
-    // Currently this just uses random spawning at any point on screen
-    // Try to figure out spawn points but its now a priority rn
     private void spawnEnemy(){
         Random random = new Random();
 //        ArrayList previous_numbers = new ArrayList();
@@ -334,7 +347,7 @@ public class Model {
                 break;
         }
 
-        int chanceToSpawn = random.nextInt(100);
+        int chanceToSpawn = random.nextInt(1000);
         if(chanceToSpawn <= spawnRate){
             EnemiesList.add(temp_enemy);
         }
