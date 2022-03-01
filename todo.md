@@ -7,7 +7,7 @@
   - [x] Change game state to gameover when dead
   - [x] Display health
 - [ ] Game over screen on player death
-- [ ] Add floppa
+- [x] Add floppa
   - When score reaches limit player, spawn floppa, player can win by killing floppa
 - [ ] Save score
 - [ ] Fix attacks (hitbox)

@@ -59,7 +59,8 @@ public class Model {
     int Score = 990;
     private int frame_count;
     private int spawnRate = 1000;
-    public boolean gameOver = false;
+    public boolean gameOverWon = false;
+    public boolean gameOverLoss = false;
     private boolean playerIsImmune = false;
     private int immunityCountdown = 10;
 
@@ -230,12 +231,12 @@ public class Model {
 
         //Player dies
         if(Player.getHealth() <= 0){
-            gameOver = true;
+            gameOverLoss = true;
         }
 
         //Floppa dies
         if(FloppaBoss.getHealth() <= 0){
-            gameOver = true;
+            gameOverWon = true;
         }
     }
 
@@ -524,6 +525,10 @@ public class Model {
             if(Math.abs(enemy.getCentre().getX() - swordHitBox.getCentre().getX()) < enemy.getWidth() && Math.abs(enemy.getCentre().getY() - swordHitBox.getCentre().getY()) < enemy.getHeight()){
                 EnemiesList.remove(enemy);
             }
+        }
+
+        if(Math.abs(FloppaBoss.getCentre().getX() - swordHitBox.getCentre().getX()) < FloppaBoss.getWidth() && Math.abs(FloppaBoss.getCentre().getY() - swordHitBox.getCentre().getY()) < FloppaBoss.getHeight()){
+            gameOverWon = true;
         }
     }
 

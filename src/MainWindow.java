@@ -141,7 +141,15 @@ public class MainWindow {
         // view update
         canvas.updateview();
 
+        //Game lost
+        if(gameworld.gameOverWon){
 
+        }
+
+        // Game lost
+        if(gameworld.gameOverLoss){
+
+        }
         // Both these calls could be setup as  a thread but we want to simplify the game logic for you.
         //score update
         frame.setTitle("Score =  " + gameworld.getScore());
