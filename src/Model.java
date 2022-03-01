@@ -37,6 +37,15 @@ SOFTWARE.
 public class Model {
 
     private GameObject Player;
+
+    public GameObject getFloppaBoss() {
+        return FloppaBoss;
+    }
+
+    public void setFloppaBoss(GameObject floppaBoss) {
+        FloppaBoss = floppaBoss;
+    }
+
     private GameObject FloppaBoss;
     private Controller controller = Controller.getInstance();
     private CopyOnWriteArrayList<GameObject> EnemiesList = new CopyOnWriteArrayList<GameObject>();
@@ -199,9 +208,9 @@ public class Model {
 
             FloppaBoss.setHealth(1);
             EnemiesList.clear();
-            EnemiesList.add(FloppaBoss);
             enemy_speed = 0;
             drawFinshHim = true;
+            drawFloppa = true;
         }
     }
 

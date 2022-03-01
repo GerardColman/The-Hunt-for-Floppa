@@ -57,6 +57,7 @@ public class Viewer extends JPanel {
     BufferedImage playerAttackRightTexture;
     BufferedImage playerAttackLeftTexture;
     BufferedImage wallTexture;
+    BufferedImage floppaTexture;
 
     public BufferedImage getWallTexture() {
         return wallTexture;
@@ -148,6 +149,9 @@ public class Viewer extends JPanel {
         File playerAttackRight = new File("res/char_attack_right.png");
         File playerAttackLeft = new File("res/char_attack_left.png");
 
+        //Loading Floppa assets
+        File floppaFile = new File("res/floppa.png");
+
         try {
             enemyTexture = ImageIO.read(enemyFile);
             playerTextureFront = ImageIO.read(playerFileFront);
@@ -160,6 +164,7 @@ public class Viewer extends JPanel {
             playerAttackRightTexture = ImageIO.read(playerAttackRight);
             playerAttackLeftTexture = ImageIO.read(playerAttackLeft);
             wallTexture = ImageIO.read(wallFile);
+            floppaTexture = ImageIO.read(floppaFile);
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -213,7 +218,7 @@ public class Viewer extends JPanel {
         }
 
         if(gameworld.drawFloppa){
-            // Render Floppa
+            drawFloppa((int)gameworld.getFloppaBoss().getCentre().getX(), (int)gameworld.getFloppaBoss().getCentre().getY(), (int)gameworld.getFloppaBoss().getWidth(), (int)gameworld.getFloppaBoss().getHeight(), gameworld.getFloppaBoss().getTexture(), g);
         }
 
 
@@ -378,6 +383,15 @@ public class Viewer extends JPanel {
         g.setFont(new Font("Verdana", Font.BOLD, 16));
         g.setColor(new Color(255,0,0));
         g.drawString("FINISH HIM", 500, 250);
+    }
+
+    private void drawFloppa(int x, int y, int width, int height, String texture, Graphics g) {
+        //The spirte is 32x32 pixel wide and 4 of them are placed together so we need to grab a different one each time
+        //remember your training :-) computer science everything starts at 0 so 32 pixels gets us to 31
+        int currentPositionInAnimation = ((int) (CurrentAnimationTime % 4) * 32); //slows down animation so every 10 frames we get another frame so every 100ms
+        currentPositionInAnimation = 0;
+        g.drawImage(floppaTexture, x, y, x + width, y + height, currentPositionInAnimation, 0, currentPositionInAnimation + 31, 32, null);
+
     }
 
 
