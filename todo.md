@@ -2,11 +2,17 @@
 - [x] Walls
 - [x] Enemy AI
 - [x] Add Score calcuations
+- [ ] Player health
+  - [x] Add player - Enemy Collision
+  - [x] Change game state to gameover when dead
+  - [x] Display health
+- [ ] Game over screen on player death
 - [ ] Add floppa
   - When score reaches limit player, spawn floppa, player can win by killing floppa
-- [ ] Player health
-- [ ] Game over screen on player death
 - [ ] Save score
+- [ ] Fix attacks (hitbox)
+- [ ] add tutorial text
+- [ ] Add textures
 ### Stretch
 - [ ] Music
 - [X] Change game name to "The Hunt For Floppa"

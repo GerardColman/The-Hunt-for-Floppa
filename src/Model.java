@@ -8,6 +8,8 @@ import util.GameObject;
 import util.Point3f;
 import util.Vector3f;
 
+import javax.swing.*;
+
 /*
  * Created by Abraham Campbell on 15/01/2020.
  *   Copyright (c) 2020  Abraham Campbell
@@ -35,13 +37,25 @@ SOFTWARE.
 public class Model {
 
     private GameObject Player;
+    private GameObject FloppaBoss;
     private Controller controller = Controller.getInstance();
     private CopyOnWriteArrayList<GameObject> EnemiesList = new CopyOnWriteArrayList<GameObject>();
     private CopyOnWriteArrayList<GameObject> BulletList = new CopyOnWriteArrayList<GameObject>();
     private CopyOnWriteArrayList<GameObject> WallList = new CopyOnWriteArrayList<GameObject>();
     private CopyOnWriteArrayList<GameObject> SpawnPointList = new CopyOnWriteArrayList<GameObject>();
     private CopyOnWriteArrayList<Point3f> SpawnPointListPoints = new CopyOnWriteArrayList<>();
-    int enemy_speed = 7;
+    private JLabel healthDisplay;
+
+    int enemy_speed = 1;
+    int Score = 990;
+    private int frame_count;
+    private int spawnRate = 1000;
+    public boolean gameOver = false;
+    private boolean playerIsImmune = false;
+    private int immunityCountdown = 10;
+
+    public boolean drawFinshHim = false;
+    public boolean drawFloppa = false;
 
     public CopyOnWriteArrayList<GameObject> getSpawnPointList() {
         return SpawnPointList;
@@ -50,15 +64,6 @@ public class Model {
     public void setSpawnPointList(CopyOnWriteArrayList<GameObject> spawnPointList) {
         SpawnPointList = spawnPointList;
     }
-
-    int Score = 20;
-    private int frame_count;
-
-    //TODO: Increase spawn rate as time goes on
-    private int spawnRate = 100;
-    public boolean gameOver = false;
-
-
 
     public Model() {
 
@@ -88,6 +93,11 @@ public class Model {
 
     private void loadLevelOne(){
         Player = new GameObject("res/Lightning.png", 32, 64, new Point3f(1000, 500, 0));
+        FloppaBoss = new GameObject("res/Lightning.png", 32, 64, new Point3f(500, 300, 0));
+
+        healthDisplay = new JLabel();
+        healthDisplay.setBounds(200, 200, 400, 50);
+        healthDisplay.setVisible(true);
 
         // Rendering top and bottom border walls
         for(int i = 0;i<10;i++){
@@ -141,6 +151,7 @@ public class Model {
             rand = random.nextInt(SpawnPointListPoints.size());
 
             GameObject temp_enemy = new GameObject("res/UFO.png", 32, 32, SpawnPointListPoints.get(rand));
+
             if (temp_enemy.getCentre().getY() == 100) {
                 temp_enemy.player_direction = "DOWN";
             } else if (temp_enemy.getCentre().getY() == 600) {
@@ -177,21 +188,61 @@ public class Model {
 
         collision();
         scoreIncrease();
+        gameOverCheck();
+        displayUI();
+        immunity();
+        spawnFloppa();
+    }
 
+    private void spawnFloppa(){
+        if(Score == 999){
+
+            FloppaBoss.setHealth(1);
+            EnemiesList.clear();
+            EnemiesList.add(FloppaBoss);
+            enemy_speed = 0;
+            drawFinshHim = true;
+        }
+    }
+
+    private void immunity(){
+        if(immunityCountdown > 0){
+            immunityCountdown--;
+        }else{
+            playerIsImmune = false;
+        }
+    }
+
+    private void displayUI(){
+        healthDisplay.setText("Health: " + Player.getHealth());
+    }
+
+    private void gameOverCheck(){
+
+        //Player dies
+        if(Player.getHealth() <= 0){
+            gameOver = true;
+        }
+
+        //Floppa dies
+        if(FloppaBoss.getHealth() <= 0){
+            gameOver = true;
+        }
     }
 
     //TODO: INTERVIEW HIGHLIGHT
     private void scoreIncrease(){
+        //System.out.println("Spawn rate: " + spawnRate);
         if(frame_count == 5){
             Score++;
+            if(spawnRate < 1000){
+                spawnRate++;
+            }
             frame_count = 0;
         }else{
             frame_count++;
         }
 
-        if(Score % 10 == 0){
-            spawnRate += 5;
-        }
     }
 
     private void collision(){
@@ -217,10 +268,12 @@ public class Model {
         for(GameObject temp : EnemiesList) {
             if (Math.abs(temp.getCentre().getX() - Player.getCentre().getX()) < temp.getWidth()
                     && Math.abs(temp.getCentre().getY() - Player.getCentre().getY()) < temp.getHeight()) {
+                if(!playerIsImmune){
+                    Player.health--;
+                    playerIsImmune = true;
+                    immunityCountdown = 10;
+                }
 
-
-//                 EnemiesList.remove(temp);
-//                 Score++;
             }
         }
     }
@@ -331,7 +384,7 @@ public class Model {
         GameObject temp_enemy = new GameObject("res/UFO.png", 32, 32, new Point3f(getRandomNumber(1, 1280), getRandomNumber(1, 720), 0));
 
         int rand = random.nextInt(4);
-        System.out.println(temp_enemy.getCentre().getX() + " : " + temp_enemy.getCentre().getY());
+        //System.out.println(temp_enemy.getCentre().getX() + " : " + temp_enemy.getCentre().getY());
         switch (rand){
             case 0:
                 temp_enemy.player_direction = "UP";
@@ -347,7 +400,7 @@ public class Model {
                 break;
         }
 
-        int chanceToSpawn = random.nextInt(1000);
+        float chanceToSpawn = random.nextInt(1000);
         if(chanceToSpawn <= spawnRate){
             EnemiesList.add(temp_enemy);
         }
@@ -418,7 +471,7 @@ public class Model {
         }
 
         if (Controller.getInstance().isKeyLeftPressed()){
-
+            Player.player_rotation_angle += -0.1;
         }
 
         if (Controller.getInstance().isKeyDownPressed()){
@@ -426,7 +479,7 @@ public class Model {
         }
 
         if (Controller.getInstance().isKeyRightPressed()){
-
+            Player.player_rotation_angle += 0.1;
         }
 
         if(Controller.getInstance().isKeyShiftPressed()){

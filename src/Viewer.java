@@ -1,10 +1,4 @@
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.LayoutManager;
-import java.awt.Rectangle;
-import java.awt.TexturePaint;
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -211,6 +205,17 @@ public class Viewer extends JPanel {
             attack_remaining--;
         }
 
+        //Drawing Player Health
+        drawPlayerHealth(g);
+
+        if(gameworld.drawFinshHim){
+            drawFinishHim(g);
+        }
+
+        if(gameworld.drawFloppa){
+            // Render Floppa
+        }
+
 
         //Draw Bullets
         // change back
@@ -360,6 +365,19 @@ public class Viewer extends JPanel {
         // Bullets from https://opengameart.org/forumtopic/tatermands-art
         // background image from https://www.needpix.com/photo/download/677346/space-stars-nebula-background-galaxy-universe-free-pictures-free-photos-free-images
 
+    }
+
+    private void drawPlayerHealth(Graphics g){
+        g.setFont(new Font("Verdana", Font.PLAIN, 30));
+        g.setColor(new Color(255,255,255));
+        g.drawString("Health: " + gameworld.getPlayer().getHealth(), 50, 70);
+    }
+
+    private void drawFinishHim(Graphics g){
+
+        g.setFont(new Font("Verdana", Font.BOLD, 16));
+        g.setColor(new Color(255,0,0));
+        g.drawString("FINISH HIM", 500, 250);
     }
 
 

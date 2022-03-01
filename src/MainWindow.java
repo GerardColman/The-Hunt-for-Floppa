@@ -50,6 +50,7 @@ public class MainWindow {
     private static int TargetFPS = 25;
     private static boolean startGame = false;
     private JLabel BackgroundImageForStartMenu;
+    private static JLabel playerHealth;
     int screen_width = 1280;
     int screen_height = 720;
 
@@ -58,13 +59,17 @@ public class MainWindow {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   //If exit // you can modify with your way of quitting , just is a template.
         frame.setLayout(null);
         frame.add(canvas);
+        frame.setResizable(false);
         canvas.setBounds(0, 0, screen_width, screen_height);
         canvas.setBackground(new Color(255, 255, 255)); //white background  replaced by Space background but if you remove the background method this will draw a white screen
         canvas.setVisible(false);   // this will become visible after you press the key.
 
 
+
+
         JButton startMenuButton = new JButton("Start Game");  // start button
-        //JLabel titleText = new JLabel("The Hunt For Floppa");
+
+
 
         startMenuButton.addActionListener(new ActionListener() {
             @Override
@@ -99,6 +104,8 @@ public class MainWindow {
     }
 
     public void run(){
+
+
         while (true)   //not nice but remember we do just want to keep looping till the end.  // this could be replaced by a thread but again we want to keep things simple
         {
             //swing has timer class to help us time this but I'm writing my own, you can of course use the timer, but I want to set FPS and display it
@@ -133,6 +140,7 @@ public class MainWindow {
 
         // view update
         canvas.updateview();
+
 
         // Both these calls could be setup as  a thread but we want to simplify the game logic for you.
         //score update
