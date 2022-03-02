@@ -3,10 +3,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.*;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -56,8 +57,11 @@ public class MainWindow {
     private static JLabel playerHealth;
     int screen_width = 1280;
     int screen_height = 720;
+    Clip music;
 
-    public MainWindow() {
+    public MainWindow() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
+        //Loading audio
+        playSound("res/sannerbaga.wav");
         frame.setSize(screen_width, screen_height);  // you can customise this later and adapt it to change on size.
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   //If exit // you can modify with your way of quitting , just is a template.
         frame.setLayout(null);
@@ -94,6 +98,12 @@ public class MainWindow {
                 canvas.setVisible(true);
                 canvas.addKeyListener(Controller);    //adding the controller to the Canvas
                 canvas.requestFocusInWindow();   // making sure that the Canvas is in focus so keyboard input will be taking in .
+                music.stop();
+                try {
+                    playSound("res/combat_theme.wav");
+                }catch (Exception y){
+                    y.printStackTrace();
+                }
                 startGame = true;
             }
         });
@@ -141,6 +151,19 @@ public class MainWindow {
             UnitTests.CheckFrameRate(System.currentTimeMillis(), FrameCheck, TargetFPS);
 
         }
+    }
+
+    /*
+    Source:
+    https://stackoverflow.com/questions/26305/how-can-i-play-sound-in-java
+     */
+    void playSound(String soundFile) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
+        File f = new File("./" + soundFile);
+        AudioInputStream audioIn = AudioSystem.getAudioInputStream(f.toURI().toURL());
+        music = AudioSystem.getClip();
+        music.open(audioIn);
+        music.start();
+        music.loop(10);
     }
 
     //Basic Model-View-Controller pattern

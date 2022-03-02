@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Vector;
@@ -8,6 +10,7 @@ import util.GameObject;
 import util.Point3f;
 import util.Vector3f;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 
 /*
@@ -54,6 +57,7 @@ public class Model {
     private CopyOnWriteArrayList<GameObject> SpawnPointList = new CopyOnWriteArrayList<GameObject>();
     private CopyOnWriteArrayList<Point3f> SpawnPointListPoints = new CopyOnWriteArrayList<>();
     private JLabel healthDisplay;
+    private Clip music;
 
     int enemy_speed = 3;
     int Score = 1;
@@ -147,6 +151,7 @@ public class Model {
         SpawnPointListPoints.add(new Point3f(100, 400, 0));
 
         initEnemies();
+
 
     }
 
@@ -523,6 +528,23 @@ public class Model {
         if(!Controller.getInstance().isKeyShiftPressed()){
             Player.setSpeed(5);
         }
+    }
+
+    /*
+Source:
+https://stackoverflow.com/questions/26305/how-can-i-play-sound-in-java
+ */
+    void playSound(String soundFile) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
+        File f = new File("./" + soundFile);
+        AudioInputStream audioIn = AudioSystem.getAudioInputStream(f.toURI().toURL());
+        music = AudioSystem.getClip();
+        music.open(audioIn);
+        music.start();
+        music.loop(10);
+    }
+
+    void stopSound() {
+        music.stop();
     }
 
     private void attack() {

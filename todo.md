@@ -1,18 +1,5 @@
-- [X] Collision
-- [x] Walls
-- [x] Enemy AI
-- [x] Add Score calcuations
-- [ ] Player health
-  - [x] Add player - Enemy Collision
-  - [x] Change game state to gameover when dead
-  - [x] Display health
-- [ ] Game over screen on player death
-- [x] Add floppa
-  - When score reaches limit player, spawn floppa, player can win by killing floppa
-- [ ] Save score
-- [ ] Fix attacks (hitbox)
-- [ ] add tutorial text
-- [ ] Add textures
-### Stretch
-- [ ] Music
-- [X] Change game name to "The Hunt For Floppa"
+- [ ] Add tutorial text
+  - use drawStringMethod with a variables string which is changed in the model
+- [ ] try and fix attacks
+  - Not sure, is okay if not finished
+  - Maybe increase hitbox?
