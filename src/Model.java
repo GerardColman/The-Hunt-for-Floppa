@@ -55,7 +55,7 @@ public class Model {
     private CopyOnWriteArrayList<Point3f> SpawnPointListPoints = new CopyOnWriteArrayList<>();
     private JLabel healthDisplay;
 
-    int enemy_speed = 1;
+    int enemy_speed = 3;
     int Score = 1;
     public int finalScore;
 
@@ -534,20 +534,21 @@ public class Model {
         Vector3f vector;
         switch (Player.getPlayer_direction()){
             case "FRONT":
-                vector = new Vector3f(0,-64,0);
+                vector = new Vector3f(0,-192,0);
             case "BACK":
-                vector = new Vector3f(0,64,0);
+                vector = new Vector3f(0,192,0);
             case "LEFT":
-                vector = new Vector3f(-32,0,0);
+                vector = new Vector3f(-128,0,0);
             case "RIGHT":
-                vector = new Vector3f(32,0,0);
+                vector = new Vector3f(128,0,0);
             default:
                 vector = new Vector3f(0,0,0);
         }
-        GameObject swordHitBox = new GameObject(Player.getCentre().PlusVector(vector), 64, 64);
+        GameObject swordHitBox = new GameObject(Player.getCentre().PlusVector(vector), 128, 128);
         for(GameObject enemy : EnemiesList){
             if(Math.abs(enemy.getCentre().getX() - swordHitBox.getCentre().getX()) < enemy.getWidth() && Math.abs(enemy.getCentre().getY() - swordHitBox.getCentre().getY()) < enemy.getHeight()){
                 EnemiesList.remove(enemy);
+                Score += 10;
             }
         }
 
