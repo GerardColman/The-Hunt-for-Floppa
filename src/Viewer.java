@@ -249,6 +249,10 @@ public class Viewer extends JPanel {
             drawFloppaIsSad(g);
         }
 
+        if(gameworld.drawTutorialText){
+            drawTutorialText(g);
+        }
+
 
         //Draw Bullets
         // change back
@@ -442,6 +446,16 @@ public class Viewer extends JPanel {
         currentPositionInAnimation = 0;
         g.drawImage(floppaTexture, x, y, x + width, y + height, currentPositionInAnimation, 0, currentPositionInAnimation + 31, 32, null);
 
+    }
+
+    private void drawTutorialText(Graphics g){
+
+        g.setFont(new Font("Verdana", Font.BOLD | Font.ITALIC, 12));
+        g.setColor(new Color(255,255,255));
+        g.drawString("You awaken in a mysterious dungeon" ,50, 100);
+        g.drawString("All you know is that a mysterious big cat know as \"floppa\" is trying to kill you. You must survive.", 50, 120);
+        g.drawString("Use WASD to move and space to attack.  If you reach score of 999 theres a surprise!", 50, 140);
+        g.drawString("Press Space to turn of this message", 50, 160);
     }
 
 

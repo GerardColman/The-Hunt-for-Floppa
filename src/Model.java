@@ -64,7 +64,7 @@ public class Model {
     public int finalScore;
 
     private int frame_count;
-    private int spawnRate = 1000;
+    private int spawnRate = 600;
     public boolean gameOverWon = false;
     public boolean gameOverLoss = false;
     private boolean playerIsImmune = false;
@@ -76,6 +76,7 @@ public class Model {
     public boolean drawPlayer = true;
     public boolean drawFloppaIsSadText = false;
     public boolean drawFloppaIsHappyText = false;
+    public boolean drawTutorialText = false;
 
     public CopyOnWriteArrayList<GameObject> getSpawnPointList() {
         return SpawnPointList;
@@ -152,7 +153,11 @@ public class Model {
 
         initEnemies();
 
+        loadTutorialText();
+    }
 
+    private void loadTutorialText(){
+        drawTutorialText = true;
     }
 
     private void initEnemies(){
@@ -275,7 +280,7 @@ public class Model {
             }
 
             if(spawnRate < 1000){
-                spawnRate++;
+                spawnRate += 10;
             }
             frame_count = 0;
         }else{
@@ -499,6 +504,7 @@ public class Model {
         if (Controller.getInstance().isKeySpacePressed()) {
             Player.setIs_attacking(true);
             attack();
+            drawTutorialText = false;
         }
 
         if (!Controller.getInstance().isKeySpacePressed()) {
@@ -566,11 +572,12 @@ https://stackoverflow.com/questions/26305/how-can-i-play-sound-in-java
             default:
                 vector = new Vector3f(0,0,0);
         }
-        GameObject swordHitBox = new GameObject(Player.getCentre().PlusVector(vector), 128, 128);
+        GameObject swordHitBox = new GameObject(Player.getCentre().PlusVector(vector), 192, 192);
         for(GameObject enemy : EnemiesList){
             if(Math.abs(enemy.getCentre().getX() - swordHitBox.getCentre().getX()) < enemy.getWidth() && Math.abs(enemy.getCentre().getY() - swordHitBox.getCentre().getY()) < enemy.getHeight()){
                 EnemiesList.remove(enemy);
                 Score += 10;
+                spawnRate += 10;
             }
         }
 
