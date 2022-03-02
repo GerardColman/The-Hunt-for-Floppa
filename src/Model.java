@@ -56,7 +56,9 @@ public class Model {
     private JLabel healthDisplay;
 
     int enemy_speed = 1;
-    int Score = 990;
+    int Score = 1;
+    public int finalScore;
+
     private int frame_count;
     private int spawnRate = 1000;
     public boolean gameOverWon = false;
@@ -243,7 +245,7 @@ public class Model {
             drawFinshHim = false;
             gameOverLoss = true;
             drawFloppaIsSadText = true;
-            Score = 1000;
+            finalScore = Score;
         }
 
         //Floppa dies
@@ -260,11 +262,13 @@ public class Model {
         }
     }
 
-    //TODO: INTERVIEW HIGHLIGHT
     private void scoreIncrease(){
         //System.out.println("Spawn rate: " + spawnRate);
         if(frame_count == 5){
-            Score++;
+            if(!(gameOverLoss || gameOverWon)){
+                Score++;
+            }
+
             if(spawnRate < 1000){
                 spawnRate++;
             }

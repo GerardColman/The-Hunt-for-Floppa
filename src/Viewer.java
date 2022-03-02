@@ -133,10 +133,10 @@ public class Viewer extends JPanel {
     private void loadTextures(){
 
         // Loading enemy assets
-        File enemyFile = new File("res/UFO.png");
+        File enemyFile = new File("res/enemy_skull.png");
 
         // Loading level assets
-        File backgroundFile = new File("res/spacebackground.png");
+        File backgroundFile = new File("res/background_crater.png");
         File wallFile = new File("res/Wall.png");
 
         //Loading player assets
@@ -239,6 +239,14 @@ public class Viewer extends JPanel {
 
         if(gameworld.drawFloppa){
             drawFloppa((int)gameworld.getFloppaBoss().getCentre().getX(), (int)gameworld.getFloppaBoss().getCentre().getY(), (int)gameworld.getFloppaBoss().getWidth(), (int)gameworld.getFloppaBoss().getHeight(), gameworld.getFloppaBoss().getTexture(), g);
+        }
+
+        if(gameworld.drawFloppaIsHappyText){
+            drawFloppaIsHappy(g);
+        }
+
+        if(gameworld.drawFloppaIsSadText){
+            drawFloppaIsSad(g);
         }
 
 
@@ -411,6 +419,20 @@ public class Viewer extends JPanel {
         g.setFont(new Font("Verdana", Font.BOLD, 16));
         g.setColor(new Color(255,0,0));
         g.drawString("FINISH HIM", 500, 250);
+    }
+
+    private void drawFloppaIsHappy(Graphics g){
+
+        g.setFont(new Font("Verdana", Font.BOLD, 30));
+        g.setColor(new Color(0,0,0));
+        g.drawString("You won the game! Floppa is happy!", 500, 250);
+    }
+
+    private void drawFloppaIsSad(Graphics g){
+
+        g.setFont(new Font("Verdana", Font.BOLD, 30));
+        g.setColor(new Color(0,0,0));
+        g.drawString("You lost the game :( Floppa is sad.  You scored: " + gameworld.finalScore, 200, 50);
     }
 
     private void drawFloppa(int x, int y, int width, int height, String texture, Graphics g) {
