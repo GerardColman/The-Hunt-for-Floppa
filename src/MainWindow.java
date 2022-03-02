@@ -46,10 +46,13 @@ public class MainWindow {
     private static JFrame frame = new JFrame("The Hunt For Floppa");   // Change to the name of your game
     private static Model gameworld = new Model();
     private static Viewer canvas = new Viewer(gameworld);
+    private static JPanel endViewWin = new JPanel();
+    private static JPanel endViewLose = new JPanel();
     private KeyListener Controller = new Controller();
     private static int TargetFPS = 25;
     private static boolean startGame = false;
     private JLabel BackgroundImageForStartMenu;
+    private JLabel BackgroundImageForWinScreen;
     private static JLabel playerHealth;
     int screen_width = 1280;
     int screen_height = 720;
@@ -63,6 +66,18 @@ public class MainWindow {
         canvas.setBounds(0, 0, screen_width, screen_height);
         canvas.setBackground(new Color(255, 255, 255)); //white background  replaced by Space background but if you remove the background method this will draw a white screen
         canvas.setVisible(false);   // this will become visible after you press the key.
+
+//        try{
+//            endViewWin.setBounds(0, 0, screen_width, screen_height);
+//            BufferedImage winBackground = ImageIO.read(new File("res/happyfloppa.png"));
+//            BackgroundImageForWinScreen = new JLabel(new ImageIcon(winBackground));
+//            BackgroundImageForWinScreen.setBounds(0, 0, screen_width, screen_height);
+//
+//        }catch(Exception e){
+//
+//        }
+
+        endViewWin.setBounds(0, 0, screen_width, screen_height);
 
 
 
@@ -141,15 +156,7 @@ public class MainWindow {
         // view update
         canvas.updateview();
 
-        //Game lost
-        if(gameworld.gameOverWon){
 
-        }
-
-        // Game lost
-        if(gameworld.gameOverLoss){
-
-        }
         // Both these calls could be setup as  a thread but we want to simplify the game logic for you.
         //score update
         frame.setTitle("Score =  " + gameworld.getScore());

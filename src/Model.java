@@ -66,6 +66,10 @@ public class Model {
 
     public boolean drawFinshHim = false;
     public boolean drawFloppa = false;
+    public boolean drawPlayerHealth = true;
+    public boolean drawPlayer = true;
+    public boolean drawFloppaIsSadText = false;
+    public boolean drawFloppaIsHappyText = false;
 
     public CopyOnWriteArrayList<GameObject> getSpawnPointList() {
         return SpawnPointList;
@@ -231,12 +235,28 @@ public class Model {
 
         //Player dies
         if(Player.getHealth() <= 0){
+            EnemiesList.clear();
+            WallList.clear();
+            drawPlayer = false;
+            drawPlayerHealth = false;
+            drawFloppa = false;
+            drawFinshHim = false;
             gameOverLoss = true;
+            drawFloppaIsSadText = true;
+            Score = 1000;
         }
 
         //Floppa dies
         if(FloppaBoss.getHealth() <= 0){
+            EnemiesList.clear();
+            WallList.clear();
+            drawPlayer = false;
+            drawFloppa = false;
+            drawPlayerHealth = false;
+            drawFinshHim = false;
             gameOverWon = true;
+            drawFloppaIsHappyText = true;
+            Score = 1000;
         }
     }
 
@@ -528,7 +548,7 @@ public class Model {
         }
 
         if(Math.abs(FloppaBoss.getCentre().getX() - swordHitBox.getCentre().getX()) < FloppaBoss.getWidth() && Math.abs(FloppaBoss.getCentre().getY() - swordHitBox.getCentre().getY()) < FloppaBoss.getHeight()){
-            gameOverWon = true;
+            FloppaBoss.health--;
         }
     }
 

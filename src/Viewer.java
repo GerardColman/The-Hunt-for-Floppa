@@ -58,6 +58,8 @@ public class Viewer extends JPanel {
     BufferedImage playerAttackLeftTexture;
     BufferedImage wallTexture;
     BufferedImage floppaTexture;
+    BufferedImage endScreenWinTexture;
+    BufferedImage endScreenLoseTexture;
 
     public BufferedImage getWallTexture() {
         return wallTexture;
@@ -152,6 +154,10 @@ public class Viewer extends JPanel {
         //Loading Floppa assets
         File floppaFile = new File("res/floppa.png");
 
+        //Loading End Screen Backgrounds
+        File endScreenWin = new File("res/happyfloppa.jpg");
+        File endScreenLose = new File("res/sadfloppa.png");
+
         try {
             enemyTexture = ImageIO.read(enemyFile);
             playerTextureFront = ImageIO.read(playerFileFront);
@@ -165,6 +171,8 @@ public class Viewer extends JPanel {
             playerAttackLeftTexture = ImageIO.read(playerAttackLeft);
             wallTexture = ImageIO.read(wallFile);
             floppaTexture = ImageIO.read(floppaFile);
+            endScreenWinTexture = ImageIO.read(endScreenWin);
+            endScreenLoseTexture = ImageIO.read(endScreenLose);
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -192,26 +200,38 @@ public class Viewer extends JPanel {
         String texture = gameworld.getPlayer().getTexture();
 
         //Draw background
-        drawBackground(g);
+        if(gameworld.gameOverWon){
+            drawBackgroundWon(g);
+        }else if(gameworld.gameOverLoss){
+            drawBackgroundLose(g);
+        }else{
+            drawBackground(g);
+        }
 
         if(gameworld.getPlayer().isIs_attacking()){
             attack_remaining = 4;
         }
 
         //Draw player
-        if(attack_remaining != 0){
-            //Call draw attack instead
-            drawPlayerAttack(x, y, width, height, texture, g, gameworld.getPlayer().getPlayer_rotation_angle());
-        }else{
-            drawPlayer(x, y, width, height, texture, g, gameworld.getPlayer().getPlayer_rotation_angle());
+
+        if(gameworld.drawPlayer){
+            if(attack_remaining != 0){
+                //Call draw attack instead
+                drawPlayerAttack(x, y, width, height, texture, g, gameworld.getPlayer().getPlayer_rotation_angle());
+            }else{
+                drawPlayer(x, y, width, height, texture, g, gameworld.getPlayer().getPlayer_rotation_angle());
+            }
         }
+
 
         if(attack_remaining > 0){
             attack_remaining--;
         }
 
         //Drawing Player Health
-        drawPlayerHealth(g);
+        if(gameworld.drawPlayerHealth){
+            drawPlayerHealth(g);
+        }
 
         if(gameworld.drawFinshHim){
             drawFinishHim(g);
@@ -264,6 +284,14 @@ public class Viewer extends JPanel {
 
     private void drawBackground(Graphics g) {
         g.drawImage(backgroundTexture, 0, 0, 1280, 720, 0, 0, 1000, 1000, null);
+    }
+
+    private void drawBackgroundWon(Graphics g) {
+        g.drawImage(endScreenWinTexture, 0, 0, 1280, 720, 0, 0, 1000, 1000, null);
+    }
+
+    private void drawBackgroundLose(Graphics g) {
+        g.drawImage(endScreenLoseTexture, 0, 0, 1280, 720, 0, 0, 1000, 1000, null);
     }
 
 //    private void drawBullet(int x, int y, int width, int height, String texture, Graphics g) {
