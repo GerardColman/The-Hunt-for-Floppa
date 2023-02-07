@@ -1,5 +1,1 @@
-- [ ] Add tutorial text
-  - use drawStringMethod with a variables string which is changed in the model
-- [ ] try and fix attacks
-  - Not sure, is okay if not finished
-  - Maybe increase hitbox?
+Done
